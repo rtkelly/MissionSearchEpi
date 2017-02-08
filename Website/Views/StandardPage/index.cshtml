@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using BaseSite.Models.ViewModels
+
+@model PageViewModel<BaseSite.Models.Pages.StandardPage>
+
+<div class="container">
+
+    <h1>@Model.CurrentPage.Name</h1>
+
+    @Html.PropertyFor(m => m.CurrentPage.MainBody)
+</div>

@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\iisweb\deploy</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Browsers/AdapterMappings.browser">
+      <publishTime>03/23/2016 14:35:27</publishTime>
+    </File>
+    <File Include="App_Data/GeoLiteCity.dat">
+      <publishTime>12/28/2015 10:59:48</publishTime>
+    </File>
+    <File Include="App_Data/missionconfig.json">
+      <publishTime>07/25/2016 12:09:03</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>01/04/2016 09:34:21</publishTime>
+    </File>
+    <File Include="bin/Castle.Core.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/Castle.Windsor.dll">
+      <publishTime>06/07/2016 11:36:14</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>12/28/2015 11:50:29</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>12/28/2015 11:50:29</publishTime>
+    </File>
+    <File Include="bin/EPiServer.ApplicationModules.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/EPiServer.BaseLibrary.dll">
+      <publishTime>12/28/2015 10:59:49</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Cms.Shell.UI.dll">
+      <publishTime>07/25/2016 10:47:27</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Configuration.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Data.Cache.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Data.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/EPiServer.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Enterprise.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Events.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Framework.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/EPiServer.ImageLibrary.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Implementation.dll">
+      <publishTime>12/28/2015 10:59:49</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Licensing.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/EPiServer.LinkAnalyzer.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Logging.Log4Net.dll">
+      <publishTime>07/25/2016 10:47:31</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Packaging.CmdAPI.dll">
+      <publishTime>07/25/2016 10:47:25</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Packaging.dll">
+      <publishTime>07/25/2016 10:47:25</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Packaging.UI.dll">
+      <publishTime>07/25/2016 10:47:26</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Shell.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Shell.UI.dll">
+      <publishTime>07/25/2016 10:47:27</publishTime>
+    </File>
+    <File Include="bin/EPiServer.UI.dll">
+      <publishTime>07/25/2016 10:47:27</publishTime>
+    </File>
+    <File Include="bin/EPiServer.Web.WebControls.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/EPiServer.WorkflowFoundation.dll">
+      <publishTime>12/28/2015 10:59:49</publishTime>
+    </File>
+    <File Include="bin/EPiServer.XForms.dll">
+      <publishTime>07/25/2016 10:47:28</publishTime>
+    </File>
+    <File Include="bin/EPiServerSiteBase.dll">
+      <publishTime>08/02/2016 10:26:07</publishTime>
+    </File>
+    <File Include="bin/HtmlAgilityPack.dll">
+      <publishTime>07/13/2016 08:56:59</publishTime>
+    </File>
+    <File Include="bin/ICSharpCode.SharpZipLib.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/Ionic.Zip.dll">
+      <publishTime>12/28/2015 10:59:49</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.Analyzers.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.Core.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.FastVectorHighlighter.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.Highlighter.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.Memory.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.Queries.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.Regex.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.SimpleFacetedSearch.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.Snowball.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.Contrib.SpellChecker.dll">
+      <publishTime>05/25/2016 14:54:52</publishTime>
+    </File>
+    <File Include="bin/Lucene.Net.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>01/07/2016 15:00:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/MissionSearch.dll">
+      <publishTime>08/02/2016 10:26:06</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/07/2016 11:43:37</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>06/20/2016 11:40:07</publishTime>
+    </File>
+    <File Include="bin/NuGet.Core.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/SolrNet.dll">
+      <publishTime>01/13/2016 14:32:09</publishTime>
+    </File>
+    <File Include="bin/StructureMap.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/StructureMap.Net4.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/StructureMap.Web.dll">
+      <publishTime>07/25/2016 10:47:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>05/12/2016 08:34:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.Providers.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>12/28/2015 10:59:50</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>01/04/2016 09:34:21</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/Samples/index.cshtml">
+      <publishTime>06/04/2016 08:48:40</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/ManageAutoComplete/index.cshtml">
+      <publishTime>05/20/2016 13:20:21</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/SearchAdmin/index.cshtml">
+      <publishTime>07/25/2016 16:27:00</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/SuggestedQueriesAdmin/add.cshtml">
+      <publishTime>07/25/2016 16:27:00</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/SuggestedQueriesAdmin/index.cshtml">
+      <publishTime>07/25/2016 16:22:58</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/SuggestedQueriesAdmin/notManaged.cshtml">
+      <publishTime>07/25/2016 16:24:06</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/SynonymsAdmin/add.cshtml">
+      <publishTime>07/25/2016 16:34:22</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/SynonymsAdmin/index.cshtml">
+      <publishTime>07/25/2016 16:33:41</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/SynonymsAdmin/notManaged.cshtml">
+      <publishTime>06/14/2016 10:51:54</publishTime>
+    </File>
+    <File Include="Business/MissionSearchEpi/UI/Views/Web.config">
+      <publishTime>05/09/2016 15:16:07</publishTime>
+    </File>
+    <File Include="changelog.txt">
+      <publishTime>04/09/2016 16:37:07</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>01/04/2016 08:41:24</publishTime>
+    </File>
+    <File Include="MissionSearch.config">
+      <publishTime>07/22/2016 10:18:07</publishTime>
+    </File>
+    <File Include="modules/_protected/CMS/CMS.zip">
+      <publishTime>07/25/2016 10:47:25</publishTime>
+    </File>
+    <File Include="modules/_protected/CMS/EPiServer.Cms.Shell.UI.zip">
+      <publishTime>12/28/2015 10:59:48</publishTime>
+    </File>
+    <File Include="modules/_protected/CMS/web.config">
+      <publishTime>07/25/2016 10:47:25</publishTime>
+    </File>
+    <File Include="modules/_protected/EPiServer.Packaging.UI/EPiServer.Packaging.UI.zip">
+      <publishTime>07/25/2016 10:47:26</publishTime>
+    </File>
+    <File Include="modules/_protected/EPiServer.Packaging.UI/web.config">
+      <publishTime>07/25/2016 10:47:26</publishTime>
+    </File>
+    <File Include="modules/_protected/Shell/EPiServer.Shell.UI.zip">
+      <publishTime>12/28/2015 10:59:48</publishTime>
+    </File>
+    <File Include="modules/_protected/Shell/Shell.zip">
+      <publishTime>07/25/2016 10:47:25</publishTime>
+    </File>
+    <File Include="modules/_protected/Shell/web.config">
+      <publishTime>07/25/2016 10:47:25</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>07/25/2016 10:47:34</publishTime>
+    </File>
+    <File Include="Resources/Languages/Display.xml">
+      <publishTime>01/04/2016 10:38:16</publishTime>
+    </File>
+    <File Include="SolrNet.chm">
+      <publishTime>04/09/2016 16:37:07</publishTime>
+    </File>
+    <File Include="Static/css/bootstrap-responsive.css">
+      <publishTime>02/16/2016 10:50:46</publishTime>
+    </File>
+    <File Include="Static/css/bootstrap.css">
+      <publishTime>02/16/2016 10:50:36</publishTime>
+    </File>
+    <File Include="Static/css/bootstrap.min.css">
+      <publishTime>01/19/2015 12:07:15</publishTime>
+    </File>
+    <File Include="Static/css/JobParameters.css">
+      <publishTime>03/23/2016 16:48:12</publishTime>
+    </File>
+    <File Include="Static/css/starter-template.css">
+      <publishTime>02/20/2015 15:54:55</publishTime>
+    </File>
+    <File Include="Static/css/style.css">
+      <publishTime>06/02/2016 19:37:27</publishTime>
+    </File>
+    <File Include="Static/css/theme.css">
+      <publishTime>06/02/2016 18:24:02</publishTime>
+    </File>
+    <File Include="Static/js/bootstrap.js">
+      <publishTime>01/19/2015 12:07:15</publishTime>
+    </File>
+    <File Include="Static/js/bootstrap.min.js">
+      <publishTime>01/19/2015 12:07:15</publishTime>
+    </File>
+    <File Include="Static/js/jquery-ui.min.js">
+      <publishTime>05/19/2016 11:06:26</publishTime>
+    </File>
+    <File Include="Static/js/searchpage.js">
+      <publishTime>06/20/2016 08:44:59</publishTime>
+    </File>
+    <File Include="Views/ArticlePage/index.cshtml">
+      <publishTime>02/11/2016 15:39:32</publishTime>
+    </File>
+    <File Include="Views/HomePage/Index.cshtml">
+      <publishTime>01/07/2016 08:50:35</publishTime>
+    </File>
+    <File Include="Views/LandingPage/index.cshtml">
+      <publishTime>01/11/2016 18:51:51</publishTime>
+    </File>
+    <File Include="Views/NewsPage/index.cshtml">
+      <publishTime>04/21/2016 19:31:02</publishTime>
+    </File>
+    <File Include="Views/SearchAdmin/index.cshtml">
+      <publishTime>04/25/2016 18:45:43</publishTime>
+    </File>
+    <File Include="Views/SearchPage/index.cshtml">
+      <publishTime>07/20/2016 09:14:29</publishTime>
+    </File>
+    <File Include="Views/Shared/Callout.cshtml">
+      <publishTime>01/07/2016 08:57:39</publishTime>
+    </File>
+    <File Include="Views/Shared/Footer.cshtml">
+      <publishTime>01/11/2016 18:48:19</publishTime>
+    </File>
+    <File Include="Views/Shared/FooterMenu.cshtml">
+      <publishTime>01/06/2016 16:10:50</publishTime>
+    </File>
+    <File Include="Views/Shared/Header.cshtml">
+      <publishTime>06/20/2016 08:29:38</publishTime>
+    </File>
+    <File Include="Views/Shared/Jumbotron.cshtml">
+      <publishTime>01/07/2016 10:10:27</publishTime>
+    </File>
+    <File Include="Views/Shared/Layouts/_Root.cshtml">
+      <publishTime>07/08/2016 18:57:23</publishTime>
+    </File>
+    <File Include="Views/Shared/MainMenu.cshtml">
+      <publishTime>01/07/2016 13:35:09</publishTime>
+    </File>
+    <File Include="Views/Shared/Slider.cshtml">
+      <publishTime>01/07/2016 14:56:00</publishTime>
+    </File>
+    <File Include="Views/StandardPage/index.cshtml">
+      <publishTime>01/11/2016 18:50:50</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>12/28/2015 10:59:48</publishTime>
+    </File>
+    <File Include="Views/_viewstart.cshtml">
+      <publishTime>12/28/2015 17:02:21</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/02/2016 10:26:07</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

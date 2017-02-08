@@ -1,0 +1,67 @@
+﻿@using MissionSearchEpi.Util
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model MissionSearch.Clients.Solr.Synonym
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellCore.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellWidgets.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellCoreLightTheme.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellWidgetsLightTheme.css" />
+    <link href="../../../App_Themes/Default/Styles/ToolButton.css" type="text/css" rel="stylesheet" />
+
+    <title></title>
+</head>
+<body>
+    @using (Html.BeginForm("Save", "SynonymsAdmin"))
+    {
+    <!-- Form content goes here -->
+    
+    <div class="epi-contentContainer epi-padding">
+        <h1>Search Admin - Manage Synonyms</h1>
+
+        <div class="epi-contentContainer epi-padding-large">
+
+            <table id="FullRegion_DatabaseTable" class="epi-default">
+                <tbody>
+                    <tr><th colspan="2">Add Synonym</th></tr>
+                    <tr><td>Search Term</td> <td>@Html.TextBoxFor(m => m.Term)</td></tr>
+                    <tr><td>Synonyms (Comma-seperated list of terms.)</td> <td>@Html.TextAreaFor(m => m.Synonyms)</td></tr>
+                   
+
+                </tbody>
+            </table>
+
+            <div class="epi-buttonContainer">
+                    <span class="epi-cmsButton">
+                        <input type="submit" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Save" value="Save" />
+                    </span>
+ 
+                    <span class="epi-cmsButton">
+                        <input type="button" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Cancel" value="Cancel"
+                               onclick="location.href='@Url.Action("Index", "SynonymsAdmin" )'" />
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.Term))
+                    {
+                        <span class="epi-cmsButton">
+                            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" type="button" value="Delete"
+                                   onclick="location.href='@Url.Action("Delete", "SynonymsAdmin", new { term = @Model.Term  })'" />
+                        </span>
+                    }
+                
+            </div>
+
+
+
+
+            
+        </div>
+       </div>
+    }
+</body>
+</html>

@@ -1,0 +1,215 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using MissionSearchEpi
+@using MissionSearch;
+@using MissionSearch.Search;
+@using BaseSite.Models.ViewModels;
+
+@model SearchViewModel<SearchResults>
+
+
+<div class="wrapper-page-header">
+    <div class="page-heading-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="page-heading">
+                        <h1 class="page-title">@Model.CurrentPage.Name</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+<div class="wrapper wrapper-padding-top">
+
+    <div class="row">
+        <div class="container searchpage">
+
+            <div class="col-xs-12">
+                <!-- start search form -->
+                <form class="search-page-form form-horizontal" action="@Url.Action("Index", "SearchPage")" method="get">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="inputSearch">Search</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+                            <input name="q" type="search" class="form-control searchautocomplete" id="inputSearch" maxlength="100" placeholder="Search" value="@Model.QueryText">
+                        </div>
+                        <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                            <button type="submit" class="btn btn-search">Go</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- end search form -->
+            </div>
+
+
+
+
+            <section class="container">
+
+
+                <div class="">
+                    
+                    <!--Sidebar content-->
+                    @if (Model.Response != null && Model.Response.Refinements.Any())
+                    {
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 search-filter-section">
+                            <h4>Filter Results</h4>
+                            <div class="row-padding-top">
+                                <div class="col-xs-12">
+
+                                    @foreach (var facet in Model.Response.Refinements ?? Enumerable.Empty<Refinement>())
+                                    {
+
+                                        <div class="row">
+                                            <aside class="col-xs-12">
+                                                <h4 class="search-filter-heading">@facet.Label</h4>
+                                                <ul class="list-unstyled search-filters">
+                                                    @foreach (var facetItem in @facet.Items ?? Enumerable.Empty<RefinementItem>())
+                                                    {
+                                                        <li>
+                                                            <input type="checkbox"
+                                                                   class="refinement-checkbox"
+                                                                   checked="@facetItem.Selected"
+                                                                   onclick="window.location.replace('@Model.BuildPostBackUrl(facetItem.Link)')" />
+                                                            <a href='@Model.BuildPostBackUrl(facetItem.Link)'>@facetItem.Label (@facetItem.Count)</a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </aside><!-- end .col -->
+                                        </div><!-- end .row -->
+
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.Response != null)
+                    {
+                        
+                        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                            <h4>Search Results</h4>
+                            <div class="row-padding-top">
+
+                                <div class="row-fluid">
+
+
+                                    <div class="span6 pull-left"><h5 class="section-title-search">@Model.ResultsString() Found</h5></div>
+                                    <div class="span6 pull-right">
+                                        Sort By:
+                                        <select id="srch-sort" class="sort-by">
+                                            <option value="" @Model.IsCurrentSort("")>Rank</option>
+                                            <option value="title" @Model.IsCurrentSort("title")>Title</option>
+                                            <option value="timestamp" @Model.IsCurrentSort("timestamp")>Date</option>
+                                        </select>
+
+                                    </div>
+
+
+
+
+                                </div><!-- end .col -->
+                                @if (Model.SuggestedResults != null && Model.SuggestedResults.Any())
+                                {
+                                    foreach (var resultItem in Model.SuggestedResults)
+                                    {
+                                        <div class="suggested-results-div">
+                                            <strong>Suggested Results</strong>
+                                            <ol class="list-unstyled">
+
+                                                <li>
+                                                    <article class="article-content">
+                                                        <header class="entry-header">
+                                                            <h4 class="entry-title"><a href="@resultItem.url">@resultItem.title</a></h4>
+                                                        </header><!-- end header.entry-header -->
+                                                        <div class="entry-content">
+                                                            <p>@Html.Raw(@resultItem.highlightsummary.Replace("<em>", "<b>").Replace("</em>", "</b>").Replace("\"", ""))</p>
+                                                        </div>
+                                                    </article><!-- end article.article-content -->
+
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    }
+
+                                }
+
+                                <div class="results-div">
+                                    <ol class="list-unstyled">
+                                        @foreach (var resultItem in Model.Response.Results)
+                                        {
+
+                                            <li>
+                                                <article class="article-content">
+                                                    <header class="entry-header">
+                                                        <h4 class="entry-title"><a href="@resultItem.url">@resultItem.title</a></h4>
+                                                        <p class="entry-meta-web">@resultItem.timestamp.ToString("MMMM dd yyyy hh:mmtt")</p>
+                                                    </header><!-- end header.entry-header -->
+                                                    <div class="entry-content">
+                                                        <p>@Html.Raw(@resultItem.highlightsummary.Replace("<em>", "<b>").Replace("</em>", "</b>").Replace("\"", ""))</p>
+                                                    </div>
+                                                </article><!-- end article.article-content -->
+
+                                            </li>
+                                        }
+                                    </ol>
+                                </div>
+
+                                @if (Model.PagingInfo != null && Model.PagingInfo.Pages.Any())
+                                {
+                                    <ul class="pagination">
+                                        <li><a href="@Model.BuildPaginationUrl(Model.PagingInfo.FirstPage)">First</a></li>
+                                        @foreach (var page in Model.PagingInfo.Pages)
+                                        {
+
+                                            <li>
+                                                <a href="@Model.BuildPaginationUrl(page.Page)">@page.Page</a>
+                                            </li>
+                                        }
+                                        <li><a href="@Model.BuildPaginationUrl(Model.PagingInfo.LastPage)">Last</a></li>
+                                    </ul>
+                                }
+
+                            </div>
+
+
+
+                        </div>
+                    }
+
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    @if (Model.DebugQuery && Model.Response != null)
+{
+    <div>
+        <a href="@Html.Raw(Model.Response.QueryString)">@Html.Raw(Model.Response.QueryString)</a>
+    </div>
+}
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

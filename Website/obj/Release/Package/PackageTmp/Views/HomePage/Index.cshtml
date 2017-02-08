@@ -1,0 +1,26 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using BaseSite.Models.ViewModels
+@using BaseSite.Models.Blocks
+
+@model PageViewModel<BaseSite.Models.Pages.HomePage>
+
+@{ Html.RenderPartial("Jumbotron", Model.CurrentPage.JumboTron); }
+<div class="container">
+    <p>
+        @Html.PropertyFor(m => m.CurrentPage.MainBody)
+    </p>
+    <div class="row">
+        @if (Model.CurrentPage.MainContent != null)
+        {
+            foreach (var calloutItem in Model.CurrentPage.MainContent.FilteredContents.OfType<CalloutBlock>())
+            {
+                Html.RenderPartial("Callout", calloutItem);
+
+            }
+        }
+
+    </div>
+
+  
+</div>

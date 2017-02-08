@@ -1,0 +1,62 @@
+﻿@using MissionSearchEpi.Util
+@{
+    Layout = null;
+}
+@using MissionSearchEpi.UI.ViewModels;
+
+@model SuggestedQueriesAdminViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellCore.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellWidgets.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellCoreLightTheme.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellWidgetsLightTheme.css" />
+    <link href="../../../App_Themes/Default/Styles/ToolButton.css" type="text/css" rel="stylesheet" />
+
+    <title></title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Save", "SuggestedQueriesAdmin"))
+        {
+    
+            <div class="epi-contentContainer epi-padding">
+                <h1>Search Admin - Manage Suggested Queries</h1>
+
+                <div class="epi-contentContainer epi-padding-large">
+
+                    <table id="FullRegion_DatabaseTable" class="epi-default">
+                        <tbody>
+                            <tr><th>Query Suggestions</th><th></th></tr>
+                            <tr><td>Comma-seperated list of terms.</td> <td>@Html.TextArea("querySuggestions")</td></tr>
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="epi-buttonContainer">
+                        <span class="epi-cmsButton">
+                            <input type="submit" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Save" value="Save" />
+                        </span>
+
+                        <span class="epi-cmsButton">
+                            <input type="button" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Cancel" value="Cancel"
+                                   onclick="location.href='@Url.Action("Index", "SuggestedQueriesAdmin")'" />
+                        </span>
+                                                
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

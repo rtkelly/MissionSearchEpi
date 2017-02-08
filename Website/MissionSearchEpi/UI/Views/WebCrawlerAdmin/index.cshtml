@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+@using MissionSearchEpi.UI.ViewModels;
+@model WebCrawlerAdminViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellCore.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellWidgets.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellCoreLightTheme.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellWidgetsLightTheme.css")" />
+    <link href="../../../App_Themes/Default/Styles/ToolButton.css" type="text/css" rel="stylesheet" />
+
+    <title></title>
+</head>
+<body>
+    <div class="epi-contentContainer epi-padding">
+        <h1>Web Crawler</h1>
+
+
+        <div class="epi-contentContainer epi-padding-large">
+
+            <div>
+
+                @Html.ActionLink("Add Job", "add", "WebCrawlerAdmin") 
+                
+            </div>
+            <hr />
+
+            <table id="FullRegion_DatabaseTable" class="epi-default">
+                <tbody>
+                    <tr><th>Source ID</th><th>Seed Url</th><th>Last Ran</th><th>Next Run</th><th>Pages</th><th>Description</th></tr>
+
+                    @foreach (var job in Model.GetWebCrawlJobs())
+                    {
+                        <tr><td><a href="/WebCrawlerAdmin/update?sourceid=@job.SourceId">@job.SourceId</a></td><td>@job.SeedUrl</td><td>@job.LastRunDate</td><td>@Model.GetStatus(job.RunIntervalType, job.RunInterval, job.LastRunDate)</td><td>@Model.GetCount(job.SourceId)</td><td>@job.Description</td></tr>
+                    }
+                </tbody>
+            </table>
+
+
+
+
+
+        </div>
+    </div>
+</body>
+</html>

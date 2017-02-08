@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FACD906D-3EDA-4A3D-A5BF-D01B75914AC0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BaseSite</RootNamespace>
+    <AssemblyName>EPiServerSiteBase</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>true</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.9.12.0\lib\net45\EPiServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.ApplicationModules, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.9.12.0\lib\net45\EPiServer.ApplicationModules.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Cms.Shell.UI, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.UI.Core.9.0.0\lib\net45\EPiServer.Cms.Shell.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Configuration, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.9.12.0\lib\net45\EPiServer.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Data, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.9.12.0\lib\net45\EPiServer.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Data.Cache, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.9.12.0\lib\net45\EPiServer.Data.Cache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Enterprise, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.9.12.0\lib\net45\EPiServer.Enterprise.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Events, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.9.12.0\lib\net45\EPiServer.Events.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Framework, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.9.12.0\lib\net45\EPiServer.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.ImageLibrary, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.9.12.0\lib\net45\EPiServer.ImageLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Licensing, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.9.12.0\lib\net45\EPiServer.Licensing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.LinkAnalyzer, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.9.12.0\lib\net45\EPiServer.LinkAnalyzer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Logging.Log4Net, Version=1.1.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Logging.Log4Net.1.1.0\lib\net45\EPiServer.Logging.Log4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Packaging, Version=3.2.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Packaging.3.2.3\lib\net45\EPiServer.Packaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Packaging.CmdAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Packaging.3.2.3\lib\net45\EPiServer.Packaging.CmdAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Packaging.UI, Version=3.2.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Packaging.UI.3.2.3\lib\net45\EPiServer.Packaging.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Shell, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.Framework.9.12.0\lib\net45\EPiServer.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Shell.UI, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.UI.Core.9.0.0\lib\net45\EPiServer.Shell.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.UI, Version=9.0.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.UI.Core.9.0.0\lib\net45\EPiServer.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Web.WebControls, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.9.12.0\lib\net45\EPiServer.Web.WebControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.XForms, Version=9.12.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPiServer.CMS.Core.9.12.0\lib\net45\EPiServer.XForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Analyzers, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Analyzers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Core, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.FastVectorHighlighter, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.FastVectorHighlighter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Highlighter, Version=2.3.2.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Highlighter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Memory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Queries, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Queries.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Regex, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Regex.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.SimpleFacetedSearch, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.SimpleFacetedSearch.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Snowball, Version=2.0.0.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Snowball.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.SpellChecker, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.SpellChecker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Core, Version=2.5.40416.9020, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Core.2.5.0\lib\net40-Client\NuGet.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=3.1.6.186, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap-signed.3.1.6.186\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=3.1.6.186, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap-signed.3.1.6.186\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web-signed.3.1.6.186\lib\net40\StructureMap.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Providers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\Channels\DisplayResolutionBase.cs" />
+    <Compile Include="Business\Channels\DisplayResolutions.cs" />
+    <Compile Include="Business\Channels\MobileChannel.cs" />
+    <Compile Include="Business\Channels\WebChannel.cs" />
+    <Compile Include="Business\EditorDescriptors\EnumEditorDescriptor.cs" />
+    <Compile Include="Business\EditorDescriptors\FooterMenuDescriptor.cs" />
+    <Compile Include="Business\EditorDescriptors\MainMenuDescriptor.cs" />
+    <Compile Include="Business\EditorDescriptors\SliderDescriptor.cs" />
+    <Compile Include="MissionSearchEpi\Config\WebCrawlerConfig.cs" />
+    <Compile Include="MissionSearchEpi\Config\MissionRegister.cs" />
+    <Compile Include="MissionSearchEpi\Config\WebCrawlJobConfig.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\Crawlers\CrawlerSettings.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\NutchCrawl.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\WebCrawlerSearchDoc.cs" />
+    <Compile Include="MissionSearchEpi\Models\Attributes\SearchableContentRef.cs" />
+    <Compile Include="MissionSearchEpi\Models\SuggestedResult.cs" />
+    <Compile Include="MissionSearchEpi\Samples\SampleSearchPage.cs" />
+    <Compile Include="MissionSearchEpi\SearchResults.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\FilterBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\PageTreeFilterBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\DateQueryBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\ISearchBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\SuggestedResultsBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Controllers\SuggestedQueriesAdminController.cs" />
+    <Compile Include="MissionSearchEpi\UI\Controllers\SynonymsAdminController.cs" />
+    <Compile Include="MissionSearchEpi\UI\Controllers\WebCrawlerAdminController.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\PageTypeSelectionFactory.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\SearchFieldEditorDescriptor.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\CategorySelectionFactory.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\CmsPathSelectionFactory.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\HideCategoryEditorDescriptor.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\SearchDocTypedSelectionFactory.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\SearchDocTypedEditorDescriptor.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\SearchDocTaggedEditorDescriptor.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\SearchDocTaggedSelectionFactory.cs" />
+    <Compile Include="MissionSearchEpi\UI\Extensions\ExtendSearchPageHandlers.cs" />
+    <Compile Include="MissionSearchEpi\UI\ViewModels\SearchAdminViewModelBase.cs" />
+    <Compile Include="MissionSearchEpi\UI\ViewModels\SuggestedQueriesAdminViewModel.cs" />
+    <Compile Include="MissionSearchEpi\UI\ViewModels\SynonymsAdminViewModel.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\Definitions\DocIncCrawlParameterDefinition.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\Extensions\ControlExtensions.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\DatabaseJobAdapter.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\Extensions\DynamicDataStoreExtensions.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\IParameterDefinitions.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\ScheduledJobParameters.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\ScheduledPlugInWithParametersAttribute.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\Definitions\DocCrawlParameterDefinition.cs" />
+    <Compile Include="Business\ScheduledJobs\Adaptors\JobParameter.cs" />
+    <Compile Include="MissionSearchEpi\Config\MissionConfig.cs" />
+    <Compile Include="MissionSearchEpi\Config\MissionConfigData.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\ContentPartialCrawl.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\DateRangeFacetBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\IFacetBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\RangeFacetBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\EnumEditorDescriptor.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\EnumSelectionFactory.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\SearchDocEditorDescriptor.cs" />
+    <Compile Include="MissionSearchEpi\UI\EditorDescriptors\SearchDocSelectionFactory.cs" />
+    <Compile Include="MissionSearchEpi\UI\ViewModels\WebCrawlerAdminViewModel.cs" />
+    <Compile Include="Models\Blocks\ContentBlock.cs" />
+    <Compile Include="Models\Pages\Product.cs" />
+    <Compile Include="MissionSearchEpi\UI\Controllers\SearchAdminController.cs" />
+    <Compile Include="Business\ScheduledJobs\DocumentImport.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\ScheduledJobBase.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\AssetPartialCrawl.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\Crawlers\AssetCrawler.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\Crawlers\ContentCrawler.cs" />
+    <Compile Include="Business\ScheduledJobs\EktronImport.cs" />
+    <Compile Include="MissionSearchEpi\Util\EpiHelper.cs" />
+    <Compile Include="Business\Util\XmlParser.cs" />
+    <Compile Include="Business\Intialization\BundleConfig.cs" />
+    <Compile Include="Business\Intialization\DisplayModeConfig.cs" />
+    <Compile Include="Business\Intialization\FilterConfig.cs" />
+    <Compile Include="MissionSearchEpi\UI\Events\OnPublish.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\ContentFullCrawl.cs" />
+    <Compile Include="Business\Page\PageContextActionFilter.cs" />
+    <Compile Include="Business\Page\PageViewContextFactory.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\AssetFullCrawl.cs" />
+    <Compile Include="Business\ScheduledJobs\ScheduledJob1.cs" />
+    <Compile Include="Controllers\ArticlePageController.cs" />
+    <Compile Include="Controllers\NewsPageController.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\BoostQueryBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\FieldFacetBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\FieldQueryBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\QueryOptionBlock.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\SortBlock.cs" />
+    <Compile Include="Models\Pages\ArticlePage.cs" />
+    <Compile Include="Models\Pages\BlogPost.cs" />
+    <Compile Include="Models\Pages\NewsPage.cs" />
+    <Compile Include="Controllers\HomePageController.cs" />
+    <Compile Include="Controllers\LandingPageController.cs" />
+    <Compile Include="Controllers\SearchPageController.cs" />
+    <Compile Include="Controllers\StandardPageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs" />
+    <Compile Include="Models\Pages\BasePage.cs" />
+    <Compile Include="Models\BlockBase.cs" />
+    <Compile Include="Models\Blocks\CalloutBlock.cs" />
+    <Compile Include="Models\Blocks\FooterBlock.cs" />
+    <Compile Include="Models\Blocks\FooterMenuBlock.cs" />
+    <Compile Include="Models\Blocks\HeaderBlock.cs" />
+    <Compile Include="Models\Blocks\JumbotronBlock.cs" />
+    <Compile Include="Models\Blocks\MainMenuBlock.cs" />
+    <Compile Include="Models\Blocks\Slide.cs" />
+    <Compile Include="Models\Media\DocumentFile.cs" />
+    <Compile Include="Models\Media\ImageFile.cs" />
+    <Compile Include="Models\Pages\LandingPage.cs" />
+    <Compile Include="Models\Pages\SearchPage.cs" />
+    <Compile Include="Models\Pages\ContainerPage.cs" />
+    <Compile Include="Models\Pages\HomePage.cs" />
+    <Compile Include="Models\Pages\StandardPage.cs" />
+    <Compile Include="MissionSearchEpi\Models\ISearchPage.cs" />
+    <Compile Include="MissionSearchEpi\UI\Extensions\ExtendSearchPage.cs" />
+    <Compile Include="MissionSearchEpi\UI\ViewModels\SearchAdminViewModel.cs" />
+    <Compile Include="MissionSearchEpi\SearchDocument.cs" />
+    <Compile Include="Models\Pages\SearchableBasePage.cs" />
+    <Compile Include="Models\Properties\PropertyStringList.cs" />
+    <Compile Include="Models\SiteImageUrl.cs" />
+    <Compile Include="Models\ViewModels\IPageViewModel.cs" />
+    <Compile Include="Models\ViewModels\LayoutModel.cs" />
+    <Compile Include="Models\ViewModels\PageViewModel.cs" />
+    <Compile Include="Models\ViewModels\SearchViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Static\images\" />
+    <Folder Include="Views\SearchDebug\" />
+    <Folder Include="Views\Shared\Blocks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Languages\Display.xml" />
+    <Content Include="Static\css\bootstrap-responsive.css" />
+    <Content Include="Static\css\bootstrap.css" />
+    <Content Include="Static\css\bootstrap.min.css" />
+    <Content Include="Static\css\JobParameters.css" />
+    <Content Include="Static\css\starter-template.css" />
+    <Content Include="Static\css\style.css" />
+    <Content Include="Static\css\theme.css" />
+    <Content Include="Static\js\bootstrap.js" />
+    <Content Include="Static\js\bootstrap.min.js" />
+    <Content Include="Static\js\jquery-ui.min.js" />
+    <Content Include="Static\js\searchpage.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\GeoLiteCity.dat" />
+    <Content Include="App_Browsers\AdapterMappings.browser" />
+    <Content Include="App_Data\missionconfig.json" />
+    <Content Include="MissionSearchEpi\UI\Views\Web.config" />
+    <Content Include="MissionSearchEpi\Samples\searchpage.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\SynonymsAdmin\index.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\SynonymsAdmin\add.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\SuggestedQueriesAdmin\index.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\SuggestedQueriesAdmin\add.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\SynonymsAdmin\notManaged.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\SuggestedQueriesAdmin\notManaged.cshtml" />
+    <None Include="EPiServerLog.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\Shared\Layouts\_Root.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\StandardPage\index.cshtml" />
+    <Content Include="Views\_viewstart.cshtml" />
+    <Content Include="Views\Shared\FooterMenu.cshtml" />
+    <Content Include="Views\Shared\MainMenu.cshtml" />
+    <Content Include="Views\Shared\Jumbotron.cshtml" />
+    <Content Include="Views\Shared\Callout.cshtml" />
+    <Content Include="Views\LandingPage\index.cshtml" />
+    <Content Include="Views\Shared\Slider.cshtml" />
+    <Content Include="Views\SearchPage\index.cshtml" />
+    <Content Include="Views\ArticlePage\index.cshtml" />
+    <Content Include="Views\NewsPage\index.cshtml" />
+    <Content Include="MissionSearch.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="modules\_protected\Shell\web.config" />
+    <Content Include="modules\_protected\Shell\Shell.zip" />
+    <Content Include="modules\_protected\CMS\web.config" />
+    <Content Include="modules\_protected\CMS\CMS.zip" />
+    <Content Include="modules\_protected\EPiServer.Packaging.UI\web.config" />
+    <Content Include="modules\_protected\EPiServer.Packaging.UI\EPiServer.Packaging.UI.zip" />
+    <Content Include="MissionSearchEpi\UI\Views\WebCrawlerAdmin\index.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\WebCrawlerAdmin\add.cshtml" />
+    <Content Include="MissionSearchEpi\UI\Views\SearchPageAdmin\index.cshtml" />
+    <None Include="Properties\PublishProfiles\EpiSearchPublish.pubxml" />
+    <Content Include="MissionSearchEpi\UI\Views\SearchAdmin\index.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MissionSearchCore\MissionSearchCore\MissionSearchCore.csproj">
+      <Project>{2cc7ce1d-6423-4fa7-a6d9-8e87364d885f}</Project>
+      <Name>MissionSearchCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60850/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

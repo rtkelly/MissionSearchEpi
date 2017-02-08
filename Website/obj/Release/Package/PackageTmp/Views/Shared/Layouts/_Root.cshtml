@@ -1,0 +1,73 @@
+﻿@using System.Web.Optimization
+@using EPiServer.Framework.Web.Mvc.Html
+@using BaseSite.Models
+@using BaseSite.Models.ViewModels
+@using BaseSite.Models.Pages
+@using MissionSearchEpi
+<!DOCTYPE html>
+@model IPageViewModel<BasePage>
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Html.CanonicalLink()
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+
+    @Styles.Render("~/bundles/css")
+    
+</head>
+<body>
+    <div>
+        @{ Html.RenderPartial("Header", Model); }
+
+        <div id="container">
+            @RenderBody()
+        </div>
+        @{ Html.RenderPartial("Footer", Model); }
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    @Scripts.Render("~/bundles/js")
+
+    @if (Model.CurrentPage is SearchPage) 
+    { 
+        <script>
+            
+        
+            $('.searchautocomplete').autocomplete({
+                minLength: 3,
+                source: function (request, response) {
+
+                    var srchtext = request.term;
+
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        url: '@Url.Action("AutoComplete", "SearchPage")',
+                        data: { term: srchtext },
+                        dataType: "json",
+                        async: true,
+                        messages: {
+                            noResults: '',
+                            results: function() {}
+                        },
+                        success: function (data) {
+
+                            response(data);
+                        },
+                        error: function () { }
+                    });
+                }
+            })
+
+    
+        </script>
+    }
+</body>
+</html>

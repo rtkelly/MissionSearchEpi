@@ -1,0 +1,92 @@
+﻿@using MissionSearchEpi.Util
+@using MissionSearchEpi.Config;
+
+@model WebCrawlJobConfig
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellCore.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellWidgets.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellCoreLightTheme.css" />
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(EpiHelper.GetShellPath())/ClientResources/epi/themes/legacy/ShellWidgetsLightTheme.css" />
+    <link href="../../../App_Themes/Default/Styles/ToolButton.css" type="text/css" rel="stylesheet" />
+
+    <title></title>
+</head>
+<body>
+    <div>
+        <div>
+            @using (Html.BeginForm("Save", "WebCrawlerAdmin"))
+            {
+
+                <div class="epi-contentContainer epi-padding">
+                    <h1>Web Crawler Admin - Edit Job</h1>
+
+                    <div class="epi-contentContainer epi-padding-large">
+
+
+                        <table id="FullRegion_DatabaseTable" class="epi-default">
+                            <tbody>
+                                <tr><td>Source ID</td> <td>@Html.TextBox("SourceId")</td></tr>
+                                <tr><td>Description</td> <td>@Html.TextArea("Description", Model.Description, new { style = "width:90%" })</td></tr>
+                                <tr><td>Seed Url</td> <td>@Html.TextBox("SeedUrl", Model.SeedUrl, new { style = "width:90%" })</td></tr>
+                                <tr><td>Depth</td> <td>@Html.TextBox("Depth")</td></tr>
+                                <tr><td>Crawl Url Pattern</td> <td>@Html.TextArea("CrawlUrlPattern", Model.CrawlUrlPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td>Crawl Url Skip Pattern</td> <td>@Html.TextArea("CrawlSkipUrlPattern", Model.CrawlSkipUrlPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td>Index Url Pattern</td> <td>@Html.TextArea("IndexUrlPattern", Model.IndexUrlPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td>Index Url Skip Pattern</td> <td>@Html.TextArea("IndexSkipUrlPattern", Model.IndexSkipUrlPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td>Run Interval</td><td>
+                                        @Html.TextBox("RunInterval")
+                                            @Html.EnumDropDownListFor(
+                                                    x => Model.RunIntervalType,
+                                                    "Select Interval Type",
+                                            new { })
+
+                                    </td>
+                                </tr>
+                                <tr><td>Last Run Date</td> <td>@Html.TextBox("LastRunDate")</td></tr>
+    
+                        </tbody>
+                        </table>
+
+                        <div class="epi-buttonContainer">
+                            <span class="epi-cmsButton">
+                                <input type="submit" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Save" value="Save" />
+                            </span>
+
+                            <span class="epi-cmsButton">
+                                <input type="button" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Cancel" value="Cancel"
+                                       onclick="location.href='@Url.Action("Index", "WebCrawlerAdmin")'" />
+                            </span>
+                            <span class="epi-cmsButton">
+                                <input type="button" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Cancel" value="Delete"
+                                       onclick="DeleteHandler()" />
+                            </span>
+
+                            <script>
+                                function DeleteHandler()
+                                {
+                                    if (window.confirm('Delete Job?')) {
+                                        location.href = '/WebCrawlerAdmin/Delete?sourceid=@Model.SourceId'
+                                    }
+                                }
+                            </script>
+
+                        </div>
+
+                    </div>
+
+              </div>
+            }
+
+           </div>                                
+     </div>
+</body>
+</html>

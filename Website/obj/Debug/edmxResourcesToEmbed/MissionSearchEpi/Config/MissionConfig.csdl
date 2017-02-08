@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MissionSearchConfigModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CrawlConfig">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="LastContentCrawl" Type="DateTime" Precision="3" />
+    <Property Name="LastAssetCrawl" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="MissionSearchConfigEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CrawlConfigs" EntityType="Self.CrawlConfig" />
+  </EntityContainer>
+</Schema>

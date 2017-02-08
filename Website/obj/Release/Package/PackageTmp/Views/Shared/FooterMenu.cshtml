@@ -1,0 +1,15 @@
+﻿@using EPiServer.SpecializedProperties
+
+@model BaseSite.Models.Blocks.FooterMenuBlock
+
+<b>@Model.Title</b>
+
+<ul>
+    @foreach (var linkItem in Model.Links ?? Enumerable.Empty<LinkItem>())
+    {
+        <li>@Html.PageLink(linkItem)</li>
+    }
+</ul>
+
+
+

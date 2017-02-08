@@ -1,0 +1,42 @@
+﻿@using EPiServer.Editor
+@using EPiServer.Core
+@using EPiServer.Web
+@using BaseSite.Models
+@using BaseSite.Models.Blocks
+@using BaseSite.Models.ViewModels
+
+@model IPageViewModel<BasePage>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">@Model.Layout.Header.LogoAltText</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+
+            <ul class="nav navbar-nav">
+                @foreach (var menuItem in Model.Layout.Header.MainMenu.FilteredContents.OfType<MainMenuBlock>())
+                {
+                    Html.RenderPartial("MainMenu", menuItem.IntializeMenu(Model.CurrentPage));
+                }
+            </ul>
+
+            <form class="search-page-form form-horizontal" action="@Url.Action("Index", "SearchPage")" method="get">
+                <div class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input name="q" id="srch-textbox" type="text" placeholder="Search Text" class="form-control">
+                    </div>
+
+                    <button id="srch-button" type="submit" class="btn btn-success">Search</button>
+                </div>
+            </form>
+
+</div>
+    </div>
+</nav>

@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+@using MissionSearchEpi.UI.ViewModels
+@using MissionSearch.Clients.Solr
+
+@model  SynonymsAdminViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellCore.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellWidgets.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellCoreLightTheme.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/EPiServer/Shell/8.2.2.0/ClientResources/epi/themes/legacy/ShellWidgetsLightTheme.css")" />
+    <link href="../../../App_Themes/Default/Styles/ToolButton.css" type="text/css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <div class="epi-contentContainer epi-padding">
+        <h1>Search Admin - Manage Synonyms</h1>
+
+        <div class="epi-contentContainer epi-padding-large">
+
+            @Html.ActionLink("Add Synonym Map", "Add", "SynonymsAdmin") 
+            <hr />
+            <table id="FullRegion_DatabaseTable" class="epi-default">
+                <tbody>
+                    <tr><th>Synonyms</th></tr>
+
+                    @foreach (var synonym in @Model.Synonyms)
+                    {
+                        <tr><td><a href="/SynonymsAdmin/update?term=@synonym.Term">@synonym.Term</a></td></tr>
+                    }
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</body>
+</html>
