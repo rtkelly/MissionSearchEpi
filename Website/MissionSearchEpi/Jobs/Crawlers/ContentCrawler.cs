@@ -9,6 +9,7 @@ using MissionSearchEpi.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace MissionSearchEpi.Crawlers
 {
@@ -27,6 +28,7 @@ namespace MissionSearchEpi.Crawlers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="crawlSettings"></param>
         public ContentCrawler(CrawlerSettings crawlSettings)
         {
             Repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
@@ -35,7 +37,7 @@ namespace MissionSearchEpi.Crawlers
 
             _crawlSettings = crawlSettings;
 
-            _logger = SearchFactory<T>.Logger;
+            _logger = SearchFactory.Logger;
         }
 
         /// <summary>
@@ -51,7 +53,7 @@ namespace MissionSearchEpi.Crawlers
 
             _crawlSettings = crawlSettings;
 
-            _logger = SearchFactory<T>.Logger;
+            _logger = SearchFactory.Logger;
         }
 
 
@@ -101,9 +103,9 @@ namespace MissionSearchEpi.Crawlers
         /// <param name="rootPage"></param>
         /// <param name="crawlStartDate"></param>
         /// <returns></returns>
-        private List<ISearchableContent> GetSearchablePages(PageReference rootPage, DateTime? crawlStartDate)
+        private List<ContentCrawlParameters> GetSearchablePages(PageReference rootPage, DateTime? crawlStartDate)
         {
-            var searchablePages = new List<ISearchableContent>();
+            var searchablePages = new List<ContentCrawlParameters>();
 
             if (rootPage == null)
                 return searchablePages;
@@ -111,7 +113,6 @@ namespace MissionSearchEpi.Crawlers
             if (_crawlSettings.ExcludedPages != null && _crawlSettings.ExcludedPages.Contains(rootPage.ID))
                 return searchablePages;
 
-            //var pages = Repository.GetChildren<PageData>(rootPage, _crawlSettings.Language);
             var pages = Repository.GetChildren<PageData>(rootPage);
 
             foreach (var page in pages)
@@ -131,21 +132,20 @@ namespace MissionSearchEpi.Crawlers
                         {
                             var pageLanguages = DataFactory.Instance.GetLanguageBranches(pageReference);
 
-                            //var pageInstance = pageLanguages.FirstOrDefault(p => p.Language.Name == _crawlSettings.Language.Name);
-
-                            //if(pageInstance == null)
-                            //  pageInstance = page;
-
                             foreach (var pageInstance in pageLanguages)
                             {
                                 var clone = pageInstance.CreateWritableClone();
 
                                 var searchablePage = BuildSearchablePage(clone);
 
-                                searchablePages.Add(searchablePage);
+                                if (searchablePage != null)
+                                {
+                                    searchablePages.Add(searchablePage);
+                                }
                             }
 
                         }
+                        
                     }
 
                     var childPages = GetSearchablePages(pageReference, crawlStartDate);
@@ -160,181 +160,7 @@ namespace MissionSearchEpi.Crawlers
 
             return searchablePages;
         }
-
-        /// <summary>
-        /// Method used to pull serachable content from ContentAreas and lists of ContentReferences
-        /// </summary>
-        /// <param name="pageData"></param>
-        /// <param name="pagecrawlMetadata"></param>
-        public List<CrawlerContent> ParseSearchableContentReferences(PageData pageData, CrawlerContentSettings pagecrawlMetadata)
-        {
-            var list = new List<CrawlerContent>();
-
-            if (pageData == null)
-                return list;
-
-            var pageContentAreas = pageData.GetType().GetProperties().Where(p => p.PropertyType.Name == "ContentArea").ToList();
-
-            foreach (var contentAreaProp in pageContentAreas)
-            {
-                var contentArea = contentAreaProp.GetValue(pageData);
-
-                if (contentArea == null)
-                    continue;
-
-                var customAttr = Attribute.GetCustomAttributes(contentAreaProp, typeof(SearchContentReference));
-
-                if (!customAttr.Any()) continue;
-
-                var blockRef = contentArea as ContentArea;
-
-                if (blockRef == null)
-                    continue;
-
-                foreach (var contentRef in blockRef.Items)
-                {
-                    var fields = ParseContentReference(contentRef.ContentLink);
-
-                    if (fields.Any())
-                        list.AddRange(fields);
-                }
-            }
-
-            var pageContentRefList = pageData.GetType().GetProperties().Where(p => p.PropertyType.Name == "IList`1").ToList();
-
-            foreach (var contentRefListProp in pageContentRefList)
-            {
-                var contentRefList = contentRefListProp.GetValue(pageData);
-
-                if (contentRefList == null)
-                    continue;
-
-                var customAttr = Attribute.GetCustomAttributes(contentRefListProp, typeof(SearchContentReference));
-
-                if (!customAttr.Any()) continue;
-
-                var refList = contentRefList as IList<ContentReference>;
-
-                if (refList == null)
-                    continue;
-
-                foreach (var contentRef in refList)
-                {
-                    var fields = ParseContentReference(contentRef);
-
-                    if (fields.Any())
-                        list.AddRange(fields);
-
-                }
-            }
-
-            var contentReferenceProps = pageData.GetType().GetProperties().Where(p => p.PropertyType.Name == "ContentReference" && p.Name != "ContentLink").ToList();
-
-            foreach (var block in contentReferenceProps)
-            {
-                var blockCustomAttr = Attribute.GetCustomAttributes(block, typeof(SearchContentReference));
-
-                if (!blockCustomAttr.Any()) continue;
-
-                var blockData = block.GetValue(pageData);
-
-                if (blockData == null)
-                    continue;
-
-                var blockRef = blockData as ContentReference;
-
-                var fields = ParseContentReference(blockRef);
-
-                if (fields.Any())
-                    list.AddRange(fields);
-            }
-
-            var pageBlockProps = pageData.GetType().GetProperties()
-                .Where(p => p.PropertyType.BaseType != null)
-                .Where(p => p.PropertyType.BaseType.Name == "BlockData").ToList();
-
-            foreach (var block in pageBlockProps)
-            {
-                var blockCustomAttr = Attribute.GetCustomAttributes(block, typeof(SearchContentReference));
-
-                if (blockCustomAttr.Any())
-                {
-                    var blockData = block.GetValue(pageData) as BlockData;
-
-                    if (blockData == null)
-                        continue;
-
-                    var fields = ParseBlockData(blockData);
-
-                    if (fields.Any())
-                        list.AddRange(fields);
-
-
-                }
-            }
-
-            return list;
-        }
-
-        /// <summary>
-        /// Method used to pull searchable content from blocks assigned to content references. 
-        /// </summary>
-        /// <param name="blockRef"></param>
-        /// <returns></returns>
-        private List<CrawlerContent> ParseContentReference(ContentReference blockRef)
-        {
-            var strBuilder = new List<CrawlerContent>();
-
-            if (blockRef == null || blockRef.ID == 0)
-                return strBuilder;
-
-            var blockData = Repository.Get<IContent>(blockRef) as BlockData;
-            
-            return ParseBlockData(blockData);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="blockData"></param>
-        /// <returns></returns>
-        private List<CrawlerContent> ParseBlockData(BlockData blockData)
-        {
-            var strBuilder = new List<CrawlerContent>();
-
-            if (blockData == null) return strBuilder;
-
-            var blockProps = blockData.GetType().GetProperties();
-
-            foreach (var blockProp in blockProps)
-            {
-                var customAttr = Attribute.GetCustomAttributes(blockProp, typeof(SearchIndex));
-
-                if (!customAttr.Any())
-                    continue;
-
-                var srchFieldMap = customAttr.First() as SearchIndex;
-
-                if (srchFieldMap == null)
-                    continue;
-
-                var fieldName = srchFieldMap.FieldName ?? "content";
-
-                var value = blockProp.GetValue(blockData);
-
-                if (value == null)
-                    continue;
-
-                strBuilder.Add(new CrawlerContent()
-                {
-                    Name = fieldName,
-                    Value = value,
-                });
-
-            }
-
-            return strBuilder;
-        }
+      
 
 
         /// <summary>
@@ -430,83 +256,104 @@ namespace MissionSearchEpi.Crawlers
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public ISearchableContent BuildSearchablePage(PageData page)
+        public ContentCrawlParameters BuildSearchablePage(PageData page)
         {
             var searchablePage = page as ISearchableContent;
 
             if (searchablePage == null)
                 return null;
 
-            var languages = new List<string>();
-            languages.Add(page.Language.Name);
+            searchablePage._ContentID = string.Format("{0}-{1}", page.ContentGuid, page.Language.Name);
+       
+            var pageCrawlParameters = new ContentCrawlParameters();
+            
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "title",
+                Value = page.Name,
+            });
 
-            searchablePage.SearchId = string.Format("{0}-{1}", page.ContentGuid, page.Language.Name);
-            searchablePage.SearchUrl = page.LinkURL.Replace("epslanguage=en", string.Format("epslanguage={0}", page.Language.Name));
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "timestamp",
+                Value = page.Changed,
+            });
 
-            var pageCrawlMetadata = new CrawlerContentSettings(searchablePage.CrawlProperties as Dictionary<string, object>);
-            pageCrawlMetadata.Content = new List<CrawlerContent>();
-
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "url",
+                Value = page.LinkURL.Replace("epslanguage=en", string.Format("epslanguage={0}", page.Language.Name)),
+            });
+            
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "contentid",
                 Value = page.ContentLink.ID.ToString(),
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "categories",
-                Value = EpiHelper.GetCategories(page.Category),
+                Value = EpiHelper.GetCategoryPaths(page.Category),
             });
-
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+                        
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "hostname",
                 Value = EpiHelper.GetSitePath(page.ContentLink),
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "folder",
                 Value = EpiHelper.GetParentName(page.ParentLink.ToPageReference()),
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "path",
                 Value = EpiHelper.GetPageTreePath(page.ParentLink.ToPageReference()),
             });
-
-
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "paths",
                 Value = EpiHelper.GetPageTreePaths(page.ParentLink.ToPageReference()),
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
-                Name = "contenttype",
+                Name = "pagetype",
                 Value = page.PageTypeName,
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "mimetype",
                 Value = "text/html",
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "contenttype",
+                Value = "HTML",
+            });
+            
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "language",
-                Value = languages,
+                Value = new List<string>()
+                {
+                    page.Language.Name,
+                },
             });
 
             // if enabled scrape page content 
-            if (_crawlSettings.PageScrapper != null && pageCrawlMetadata.EnablePageScrape)
+            if (_crawlSettings.PageScrapper != null && pageCrawlParameters.EnablePageScrape)
             {
                 var scrapContent = _crawlSettings.PageScrapper.ScrapPage(EpiHelper.GetExternalURL(page));
 
-                pageCrawlMetadata.Content.Add(new CrawlerContent()
+                pageCrawlParameters.Content.Add(new CrawlerContent()
                 {
                     Name = MissionSearch.Global.ContentField,
                     Value = scrapContent,
@@ -514,17 +361,185 @@ namespace MissionSearchEpi.Crawlers
             }
 
             // parse searchable block data and add to content
-            var parsedBlockText = ParseSearchableContentReferences(page, pageCrawlMetadata);
+            var parsedBlockText = ProcessContentReferences(page);
 
             if (parsedBlockText.Any())
             {
-                pageCrawlMetadata.Content.AddRange(parsedBlockText);
+                pageCrawlParameters.Content.AddRange(parsedBlockText);
             }
 
-            searchablePage.CrawlProperties = pageCrawlMetadata;
+            //searchablePage.CrawlProperties = pageCrawlMetadata;
+            pageCrawlParameters.ContentItem = searchablePage;
 
-            return searchablePage;
+            return pageCrawlParameters;
         }
+
+        /// <summary>
+        /// Method used to pull serachable content from ContentAreas and lists of ContentReferences
+        /// </summary>
+        /// <param name="contentData"></param>
+        public List<CrawlerContent> ProcessContentReferences(ContentData contentData)
+        {
+            var list = new List<CrawlerContent>();
+
+            if (contentData == null)
+                return list;
+
+            var pageProps = contentData.GetType().GetProperties();
+
+            foreach (var pageProp in pageProps)
+            {
+                try {
+                    if (pageProp.Name == "ContentLink")
+                        continue;
+
+                    var propValue = pageProp.GetValue(contentData);
+
+                    if (propValue == null)
+                        continue;
+
+                    switch(pageProp.PropertyType.Name)
+                    {
+                        case "ContentArea":
+                    
+                            var refContentArea = propValue as ContentArea;
+
+                            if (refContentArea == null)
+                                continue;
+
+                            foreach (var contentRef in refContentArea.Items)
+                            {
+                                var blockData = Repository.Get<IContent>(contentRef.ContentLink) as BlockData;
+                                
+                                if (blockData != null)
+                                {
+                                    var fields = ParseBlockData(blockData);
+
+                                    if (fields.Any())
+                                        list.AddRange(fields);
+                                }
+                            }
+
+                            break;
+
+
+                        case "IList`1":
+                        
+                            var refList = propValue as IList<ContentReference>;
+
+                            if (refList == null)
+                                continue;
+
+                            foreach (var contentRef in refList)
+                            {
+                                var blockData = Repository.Get<IContent>(contentRef) as BlockData;
+
+                                if (blockData != null)
+                                {
+                                    var fields = ParseBlockData(blockData);
+
+                                    if (fields.Any())
+                                        list.AddRange(fields);
+                                }
+                            }
+
+                            break;
+
+                        case "ContentReference":
+                            
+                                var blockRef = propValue as ContentReference;
+
+                                var blockData1 = Repository.Get<IContent>(blockRef) as BlockData;
+
+                                if (blockData1 != null)
+                                {
+                                    var fields = ParseBlockData(blockData1);
+
+                                    if (fields.Any())
+                                        list.AddRange(fields);
+                                }
+
+                                break;
+                            
+
+                        default:
+
+                            var blockData2 = propValue as BlockData;
+
+                            if (blockData2 != null)
+                            {
+                                var blockFields = ParseBlockData(blockData2);
+
+                                if (blockFields.Any())
+                                    list.AddRange(blockFields);
+                            }
+                                                    
+                        
+                            break;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    _logger.Debug(string.Format("{0} {1}", ex.Message, ex.StackTrace));
+                    
+                }
+            }
+
+
+            return list;
+        }
+             
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="blockData"></param>
+        /// <returns></returns>
+        private List<CrawlerContent> ParseBlockData(BlockData blockData)
+        {
+            var list = new List<CrawlerContent>();
+
+            if (blockData == null) return list;
+
+            var blockProps = blockData.GetType().GetProperties();
+
+            foreach (var blockProp in blockProps)
+            {
+                var customAttr = Attribute.GetCustomAttributes(blockProp, typeof(SearchIndex));
+
+                if (customAttr.Any())
+                {
+                    var srchFieldMap = customAttr.First() as SearchIndex;
+
+                    if (srchFieldMap == null)
+                        continue;
+
+                    var fieldName = srchFieldMap.FieldName ?? "content";
+
+                    var value = blockProp.GetValue(blockData);
+
+                    if (value == null)
+                        continue;
+
+                    list.Add(new CrawlerContent()
+                    {
+                        Name = fieldName,
+                        Value = value,
+                    });
+                }
+            }
+
+            var more = ProcessContentReferences(blockData);
+
+            if (more.Any())
+            {
+                list.AddRange(more);
+            }
+
+            return list;
+        }
+
+        
 
     }
 

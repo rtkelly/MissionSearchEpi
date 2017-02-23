@@ -10,7 +10,7 @@ namespace MissionSearchEpi.Jobs
     //[ScheduledPlugInWithParameters(DisplayName = "Run Asset Crawler (Incremental)", Description = "",
     //    DefinitionsClass = "BaseSite.Business.ScheduledJobs.Adaptors.Definitions.DocIncCrawlParameterDefinition",
     //    DefinitionsAssembly = "EPiServerSiteBase")]
-    [ScheduledPlugIn(DisplayName = "Search - Run Asset Crawler (Partial)", SortIndex = 4)]
+    [ScheduledPlugIn(DisplayName = "Search - Run Asset Crawler (Partial)", SortIndex = 4, DefaultEnabled=false)]
     public class AssetPartialCrawl : MissionScheduledJobBase
     {
         /// <summary>

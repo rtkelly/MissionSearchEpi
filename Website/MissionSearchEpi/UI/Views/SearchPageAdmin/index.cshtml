@@ -1,0 +1,169 @@
+﻿@{
+    Layout = null;
+}
+@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using MissionSearchEpi
+@using MissionSearch;
+@using MissionSearch.Search;
+@using MissionSearchEpi.UI.ViewModels
+
+@model SearchPageAdminViewModel<SearchDocAdmin>
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellCore.css")" />
+        <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellWidgets.css")" />
+        <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellCoreLightTheme.css")" />
+        <link rel="stylesheet" type="text/css" href="@Model.GetShellPath("/ClientResources/epi/themes/legacy/ShellWidgetsLightTheme.css")" />
+        <link href="../../../App_Themes/Default/Styles/ToolButton.css" type="text/css" rel="stylesheet" />
+
+        <title></title>
+
+        <style>
+            .search-filter-section {
+                float: left;
+                width: 20%;
+            }
+
+            .search-results {
+                float: left;
+                width:80%;
+            }
+
+            .results-div
+            {
+                width:90%
+            }
+
+        </style>
+    </head>
+
+<body>
+    <div class="epi-contentContainer epi-padding">
+        <h1>Search</h1>
+
+@using (Html.BeginForm("Search", "SearchPageAdmin"))
+{
+    <div class="form-group">
+        <div class="col-xs-12">
+            <label for="inputSearch">Search</label>
+        </div>
+        <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+            <input name="q" type="search" class="form-control searchautocomplete" id="inputSearch" maxlength="100" placeholder="Search" value="@Model.QueryText">
+        </div>
+        <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+            <input type="submit" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Save" value="Search" />
+            
+        </div>
+    </div>
+}
+  
+        <div>
+            @if (Model.Response != null && Model.Response.Refinements.Any())
+            {
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 search-filter-section" >
+                    <h4>Filter Results</h4>
+                    <div class="row-padding-top">
+                        <div class="col-xs-12">
+
+                            @foreach (var facet in Model.Response.Refinements ?? Enumerable.Empty<Refinement>())
+                                    {
+
+                                    <div class="row">
+                                        <aside class="col-xs-12">
+                                            <h4 class="search-filter-heading">@facet.Label</h4>
+                                            <ul class="list-unstyled search-filters">
+                                                @foreach (var facetItem in @facet.Items ?? Enumerable.Empty<RefinementItem>())
+                                                    {
+                                                    <li>
+                                                        <input type="checkbox"
+                                                               class="refinement-checkbox"
+                                                               checked="@facetItem.Selected" />
+                                                        @Html.ActionLink(@facetItem.DisplayName, "Search", new { q=Model.QueryText,r=@facetItem.Refinement }) (@facetItem.Count)
+                                                    </li>
+                                                    }
+                                            </ul>
+                                        </aside><!-- end .col -->
+                                    </div><!-- end .row -->
+
+                                    }
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Response != null)
+            {
+
+                <div class="search-results">
+                    <h4>Search Results</h4>
+                    <div class="row-padding-top">
+
+                        <div class="row-fluid">
+
+
+                            <div class="span6 pull-left"><h5 class="section-title-search">@Model.ResultsString()</h5></div>
+
+
+
+                        </div><!-- end .col -->
+
+
+                        <div class="results-div">
+                            <ol class="list-unstyled">
+                                @foreach (var resultItem in Model.Response.Results)
+                                        {
+
+                                        <li>
+                                            <article class="article-content">
+                                                <header class="entry-header">
+                                                    <h4 class="entry-title"><a href="@resultItem.url">@resultItem.title</a></h4>
+                                                    <p class="entry-meta-web">@resultItem.timestamp.ToString("MMMM dd yyyy hh:mmtt")</p>
+                                                </header><!-- end header.entry-header -->
+                                                <div class="entry-content">
+                                                    <p>@Html.Raw(@resultItem.highlightsummary)</p>
+                                                </div>
+                                            </article><!-- end article.article-content -->
+
+                                        </li>
+                                        }
+                            </ol>
+                        </div>
+
+                        @if (Model.PagingInfo != null && Model.PagingInfo.Pages.Any())
+                                {
+                                <ul class="pagination">
+                                    <li><a href="">First</a></li>
+                                    @foreach (var page in Model.PagingInfo.Pages)
+                                        {
+
+                                        <li>
+                                            @Html.ActionLink(@page.Page.ToString(), "Search", new { q=Model.QueryText,p=page.Page })
+                                        </li>
+                                        }
+                                    <li><a href="">Last</a></li>
+                                </ul>
+                                }
+
+                    </div>
+
+
+
+                </div>
+            }
+
+        </div>
+
+
+
+    </div>
+</body>
+</html>

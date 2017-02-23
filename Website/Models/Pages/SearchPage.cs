@@ -34,7 +34,7 @@ namespace BaseSite.Models.Pages
         public virtual ContentArea QueryOptions { get; set; }
 
         [Display(Name = "Facets", Order = 400)]
-        [AllowedTypes(typeof(FieldFacetBlock), typeof(RangeFacetBlock), typeof(DateRangeFacetBlock))]
+        [AllowedTypes(typeof(FieldFacetBlock), typeof(RangeFacetBlock), typeof(DateRangeFacetBlock), typeof(CategoryFacetBlock))]
         public virtual ContentArea Facets { get; set; }
                 
         [Display(Name = "Suggested Results", Order = 500)]

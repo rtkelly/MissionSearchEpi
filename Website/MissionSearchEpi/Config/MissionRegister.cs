@@ -23,10 +23,10 @@ namespace MissionSearchEpi.Config
             routes.MapRoute("SynonymsAdmin", "SynonymsAdmin/{action}", new { controller = "SynonymsAdmin", action = "Index" });
             routes.MapRoute("SuggestedQueriesAdmin", "SuggestedQueriesAdmin/{action}", new { controller = "SuggestedQueriesAdmin", action = "Index" });
             routes.MapRoute("WebCrawlerAdmin", "WebCrawlerAdmin/{action}", new { controller = "WebCrawlerAdmin", action = "Index" });
+            //routes.MapRoute("SearchPageAdmin", "SearchPageAdmin/{action}", new { controller = "SearchPageAdmin", action = "Index" });
             
-            //routes.MapRoute("SearchApi", "SearchApi/{action}", new { controller = "SearchApi", action = "Index" });
-
             
+            routes.MapMvcAttributeRoutes();
         
         } 
 

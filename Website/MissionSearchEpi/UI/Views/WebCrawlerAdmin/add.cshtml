@@ -34,6 +34,7 @@
 
                         <table id="FullRegion_DatabaseTable" class="epi-default">
                             <tbody>
+                                <tr><td><h3>Crawler Settings</h3><td></td></tr>
                                 <tr><td>Source ID</td> <td>@Html.TextBox("SourceId")</td></tr>
                                 <tr><td>Description</td> <td>@Html.TextArea("Description", Model.Description, new { style = "width:90%" })</td></tr>
                                 <tr><td>Seed Url</td> <td>@Html.TextBox("SeedUrl", Model.SeedUrl, new { style = "width:90%" })</td></tr>
@@ -42,6 +43,12 @@
                                 <tr><td>Crawl Url Skip Pattern</td> <td>@Html.TextArea("CrawlSkipUrlPattern", Model.CrawlSkipUrlPattern, new { style = "width:90%" })</td></tr>
                                 <tr><td>Index Url Pattern</td> <td>@Html.TextArea("IndexUrlPattern", Model.IndexUrlPattern, new { style = "width:90%" })</td></tr>
                                 <tr><td>Index Url Skip Pattern</td> <td>@Html.TextArea("IndexSkipUrlPattern", Model.IndexSkipUrlPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td><h3>Page Settings</h3><td></td></tr>
+                                <tr><td>Title Pattern</td> <td>@Html.TextBox("TitlePattern", Model.TitlePattern, new { style = "width:90%" })</td></tr>
+                                <tr><td>Description Pattern</td> <td>@Html.TextBox("SummaryPattern", Model.SummaryPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td>Content Pattern</td> <td>@Html.TextArea("ContentPattern", Model.ContentPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td>Metadata Pattern</td> <td>@Html.TextArea("MetadataPattern", Model.MetadataPattern, new { style = "width:90%" })</td></tr>
+                                <tr><td><h3>Scheduling</h3></td><td></td></tr>
                                 <tr><td>Run Interval</td><td>
                                         @Html.TextBox("RunInterval")
                                             @Html.EnumDropDownListFor(

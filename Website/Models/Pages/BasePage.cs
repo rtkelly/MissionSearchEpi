@@ -16,6 +16,7 @@ using System.ComponentModel.DataAnnotations;
 using MissionSearchEpi.Util;
 using BaseSite.Models.Pages;
 using MissionSearch.Attributes;
+using BaseSite.Models.Properties;
 
 namespace BaseSite.Models
 {
@@ -35,16 +36,8 @@ namespace BaseSite.Models
                 return _repository;
             }
         }
-
-        [SearchIndex("categories")]
-        public List<string> Categories
-        {
-            get
-            {
-                return EpiHelper.GetCategories(Category);
-            }
-        }
-
+        
+        
         [SearchIndex("animal")]
         public List<string> Animal
         {
@@ -53,6 +46,10 @@ namespace BaseSite.Models
                 return EpiHelper.GetCategories(Category, 4);
             }
         }
+
+
+       // [SearchIndex("keywords")]
+        //public virtual string[] MetaKeywords { get { return new string[] { "dog", "cat", "Fish" }; } }
 
         
        

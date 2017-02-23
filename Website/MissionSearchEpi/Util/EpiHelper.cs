@@ -219,8 +219,7 @@ namespace MissionSearchEpi.Util
 
                 if (parentLink2 != null)
                     path += CreateFolderPath(repository, parentLink2.ToPageReference());
-
-                //path += string.Format("/{0}", parent.Name.Replace(" ", ""));
+                
                 path += string.Format("/{0}", parent.Name);
                 return path;
             }
@@ -236,7 +235,7 @@ namespace MissionSearchEpi.Util
         /// </summary>
         /// <param name="categoryList"></param>
         /// <returns></returns>
-        public static List<string> GetCategories(CategoryList categoryList)
+        public static List<string> GetCategoryNames(CategoryList categoryList)
         {
             var categories = new List<string>();
 
@@ -260,15 +259,106 @@ namespace MissionSearchEpi.Util
             return categories;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Category> GetRootCategories()
+        {
+            var categories = new List<Category>();
 
+            var categoryRepository = ServiceLocator.Current.GetInstance<CategoryRepository>();
+
+            var rootCategory = categoryRepository.GetRoot();
+            
+            foreach (var category in rootCategory.Categories)
+            {
+                    categories.Add(category);
+            }
+
+            return categories;
+        }
+
+        /// <summary>
+        ///        
+        /// </summary>
+        /// <param name="categoryList"></param>
+        /// <returns></returns>
+        public static List<string> GetCategoryPaths(CategoryList categoryList)
+        {
+            var categories = new List<string>();
+
+            var categoryRepository = ServiceLocator.Current.GetInstance<CategoryRepository>();
+
+            var rootCategory = categoryRepository.GetRoot();
+
+            if (categoryList.Any())
+            {
+                foreach (var categoryId in categoryList)
+                {
+                    var categoryPaths = CreateCategoryPath(rootCategory, categoryId);
+
+                    //if(categoryPaths.Any())
+                    //    categories.AddRange(categoryPaths);
+                    
+                    var path = string.Empty;
+
+                    foreach(var category in categoryPaths)
+                    {
+                        if(path == string.Empty)
+                        {
+                            path = category;
+                        }
+                        else
+                        {
+                            path = string.Format("{0}/{1}", path, category);
+                        }
+
+                        categories.Add(path);
+                    }
+                }
+            }
+
+            return categories;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public static List<string> CreateCategoryPath(Category root, int categoryId)
+        {
+            var paths = new List<string>();
+
+            var category = FindCategory(root, categoryId);
+
+            if (category == null)
+                return paths;
+
+            paths.Add(category.Name);
+
+            if (category.Parent != null)
+            {
+                var parentPaths = CreateCategoryPath(root, category.Parent.ID);
+                
+                if (parentPaths.Any())
+                    paths.InsertRange(0, parentPaths);
+            }
+
+            return paths;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryList"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         public static bool HasCategory(CategoryList categoryList, long categoryId)
         {
-           // var categories = new List<string>();
-
-            //var categoryRepository = ServiceLocator.Current.GetInstance<CategoryRepository>();
-
-            //var rootCategory = categoryRepository.GetRoot();
-
+          
             if (categoryList.Any())
             {
                 foreach (var catId in categoryList)

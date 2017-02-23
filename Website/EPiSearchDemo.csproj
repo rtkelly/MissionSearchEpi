@@ -320,14 +320,17 @@
     <Compile Include="Business\EditorDescriptors\SliderDescriptor.cs" />
     <Compile Include="MissionSearchEpi\Config\WebCrawlerConfig.cs" />
     <Compile Include="MissionSearchEpi\Config\MissionRegister.cs" />
-    <Compile Include="MissionSearchEpi\Config\WebCrawlJobConfig.cs" />
     <Compile Include="MissionSearchEpi\Jobs\Crawlers\CrawlerSettings.cs" />
     <Compile Include="MissionSearchEpi\Jobs\NutchCrawl.cs" />
     <Compile Include="MissionSearchEpi\Jobs\WebCrawlerSearchDoc.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\WebCrawlJobConfig.cs" />
+    <Compile Include="MissionSearchEpi\Jobs\WebCrawlScheduledJob.cs" />
     <Compile Include="MissionSearchEpi\Models\Attributes\SearchableContentRef.cs" />
     <Compile Include="MissionSearchEpi\Models\SuggestedResult.cs" />
+    <Compile Include="MissionSearchEpi\Models\WebCrawlerPage.cs" />
     <Compile Include="MissionSearchEpi\Samples\SampleSearchPage.cs" />
     <Compile Include="MissionSearchEpi\SearchResults.cs" />
+    <Compile Include="MissionSearchEpi\UI\Blocks\CategoryFacetBlock.cs" />
     <Compile Include="MissionSearchEpi\UI\Blocks\FilterBlock.cs" />
     <Compile Include="MissionSearchEpi\UI\Blocks\PageTreeFilterBlock.cs" />
     <Compile Include="MissionSearchEpi\UI\Blocks\DateQueryBlock.cs" />
@@ -442,6 +445,7 @@
     <Folder Include="Views\Shared\Blocks\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MissionSearchCore.csproj" />
     <Content Include="Resources\Languages\Display.xml" />
     <Content Include="Static\css\bootstrap-responsive.css" />
     <Content Include="Static\css\bootstrap.css" />
@@ -514,7 +518,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MissionSearchCore\MissionSearchCore\MissionSearchCore.csproj">
+    <ProjectReference Include="..\..\..\MissionSearchCore\MissionSearchCore1.1.0.0\MissionSearchCore\MissionSearchCore.csproj">
       <Project>{2cc7ce1d-6423-4fa7-a6d9-8e87364d885f}</Project>
       <Name>MissionSearchCore</Name>
     </ProjectReference>

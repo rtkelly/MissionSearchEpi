@@ -4,7 +4,7 @@ using EPiServer.Scheduler;
 
 namespace MissionSearchEpi.Jobs
 {
-    [ScheduledPlugIn(DisplayName = "Search - Run Nutch External Crawler", DefaultEnabled = true, SortIndex = 5)]
+    [ScheduledPlugIn(DisplayName = "Search - Run Nutch External Crawler", DefaultEnabled = false, SortIndex = 5)]
     public class NutchCrawl : ScheduledJobBase
     {
         private bool _stopSignaled;

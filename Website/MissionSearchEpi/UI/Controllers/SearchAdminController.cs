@@ -9,9 +9,7 @@ using MissionSearchEpi.UI.ViewModels;
 namespace MissionSearchEpi.Controllers
 {
     [Authorize(Roles = "CmsAdmins")] 
-    [EPiServer.PlugIn.GuiPlugIn(Area = EPiServer.PlugIn.PlugInArea.AdminMenu,
-        Url = "/SearchAdmin", 
-        DisplayName = "Search Admin")]
+    [EPiServer.PlugIn.GuiPlugIn(Area = EPiServer.PlugIn.PlugInArea.AdminMenu, Url = "/SearchAdmin", DisplayName = "Search Admin")]
     public class SearchAdminController : Controller
     {
         public ActionResult Index()

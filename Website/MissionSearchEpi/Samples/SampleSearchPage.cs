@@ -10,6 +10,7 @@ using System.Web;
 
 namespace MissionSearchEpi.Samples
 {
+    /*
     public class SampleSearchPage : ISearchPage
     {
         [Display(Name = "Header Text", Order = 100)]
@@ -39,4 +40,5 @@ namespace MissionSearchEpi.Samples
         public virtual XhtmlString NoResults { get; set; }
 
     }
+     * */
 }

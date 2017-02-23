@@ -76,7 +76,7 @@
                                                                    class="refinement-checkbox"
                                                                    checked="@facetItem.Selected"
                                                                    onclick="window.location.replace('@Model.BuildPostBackUrl(facetItem.Link)')" />
-                                                            <a href='@Model.BuildPostBackUrl(facetItem.Link)'>@facetItem.Label (@facetItem.Count)</a>
+                                                            <a href='@Model.BuildPostBackUrl(facetItem.Link)'>@facetItem.DisplayName (@facetItem.Count)</a>
                                                         </li>
                                                     }
                                                 </ul>
@@ -152,7 +152,7 @@
                                                         <p class="entry-meta-web">@resultItem.timestamp.ToString("MMMM dd yyyy hh:mmtt")</p>
                                                     </header><!-- end header.entry-header -->
                                                     <div class="entry-content">
-                                                        <p>@Html.Raw(@resultItem.highlightsummary.Replace("<em>", "<b>").Replace("</em>", "</b>").Replace("\"", ""))</p>
+                                                        <p>@Html.Raw(@resultItem.highlightsummary)</p>
                                                     </div>
                                                 </article><!-- end article.article-content -->
 
@@ -161,18 +161,18 @@
                                     </ol>
                                 </div>
 
-                                @if (Model.PagingInfo != null && Model.PagingInfo.Pages.Any())
+                                @if (Model.Response.PagingInfo != null && Model.Response.PagingInfo.Pages.Any())
                                 {
                                     <ul class="pagination">
-                                        <li><a href="@Model.BuildPaginationUrl(Model.PagingInfo.FirstPage)">First</a></li>
-                                        @foreach (var page in Model.PagingInfo.Pages)
+                                        <li><a href="@Model.BuildPaginationUrl(Model.Response.PagingInfo.FirstPage)">First</a></li>
+                                        @foreach (var page in Model.Response.PagingInfo.Pages)
                                         {
 
                                             <li>
                                                 <a href="@Model.BuildPaginationUrl(page.Page)">@page.Page</a>
                                             </li>
                                         }
-                                        <li><a href="@Model.BuildPaginationUrl(Model.PagingInfo.LastPage)">Last</a></li>
+                                        <li><a href="@Model.BuildPaginationUrl(Model.Response.PagingInfo.LastPage)">Last</a></li>
                                     </ul>
                                 }
 

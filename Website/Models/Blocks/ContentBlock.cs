@@ -42,6 +42,10 @@ namespace BaseSite.Models.Blocks
         [UIHint(UIHint.Image)] //Displays an image instead of a ContentReference
         public virtual ContentReference Image { get; set; }
 
+        [Display(Name = "Content Area Test", Order = 100)]
+        [AllowedTypes(new[] { typeof(ContentBlock) })]
+        public virtual ContentArea ContentBlock2 { get; set; }
+
         
     }
 }

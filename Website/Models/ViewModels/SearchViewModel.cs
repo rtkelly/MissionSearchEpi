@@ -23,21 +23,7 @@ namespace BaseSite.Models.ViewModels
 
         public IEnumerable<T> SuggestedResults { get; set; }
 
-        private Pagination _pagingInfo { get; set; }
-
-        public Pagination PagingInfo { get
-            {
-                if(_pagingInfo == null)
-                {
-                    if (Response == null)
-                        return null;
-
-                    _pagingInfo = Response.BuildPagination();
-                }
-
-                return _pagingInfo;
-            }
-        }
+        
 
         public SearchViewModel(SearchPage currentPage)
             : base(currentPage)
@@ -56,7 +42,7 @@ namespace BaseSite.Models.ViewModels
         /// <returns></returns>
         public string ResultsString()
         {
-            return string.Format("{0} - {1} of {2}", PagingInfo.StartRow, PagingInfo.EndRow, PagingInfo.TotalRows);
+            return string.Format("{0} - {1} of {2}", Response.PagingInfo.StartRow, Response.PagingInfo.EndRow, Response.PagingInfo.TotalRows);
         }
 
         

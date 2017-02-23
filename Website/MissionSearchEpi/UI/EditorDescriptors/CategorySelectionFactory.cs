@@ -20,7 +20,7 @@ namespace MissionSearchEpi.EditorDescriptors
             {
                 QueryText = "*",
                 PageSize = 1,
-                RefinementType = RefinementTypes.SingleSelect,
+                //RefinementType = RefinementType.SingleSelect,
                 Facets = facets,
             });
 

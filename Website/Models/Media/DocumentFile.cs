@@ -39,37 +39,24 @@ namespace BaseSite.Models.Media
         public virtual bool DisableExtract { get; set; }
 
         [Ignore]
-        public string PageTypeName { get; set; }
-
-        [Ignore]
-        public string SearchId { get; set; }
+        public string ContentID { get; set; }
       
         [Ignore]
         public object CrawlProperties { get; set; }
-
-        [Ignore]
-        public string SearchUrl { get; set; }
-
-        [Ignore]
-        public string HostName { get; set; }
-
+              
         [Ignore]
         public byte[] AssetBlob { get; set; }
-
-        [Ignore]
-        public List<string> Languages { get; set; }
-
-        [Ignore]
-        public List<string> PageTree { get; set; }
-
+                
         [Ignore]
         [SearchIndex("categories")]
         public List<string> Categories
         {
             get
             {
-                return EpiHelper.GetCategories(Category);
+                return EpiHelper.GetCategoryNames(Category);
             }
         }
+
+        public string _ContentID { get; set; }
     }
 }

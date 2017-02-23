@@ -114,7 +114,27 @@ namespace MissionSearchEpi.Extensions
                     Order = fieldFacetBlocks.IndexOf(fieldFacet),
                 });
             }
+
+            var categoryFacetBlocks = EpiHelper.GetContentAreaContent<CategoryFacetBlock>(srchPage.Facets.Items);
+
+            foreach (var categoryFacet in categoryFacetBlocks)
+            {
+                var list = categoryFacet.CategoryName;
+
+                var categories = EpiHelper.GetCategoryNames(list);
+
+                foreach (var category in categories)
+                {
+                    facets.Add(new CategoryFacet("categories", category, category)
+                    {
+                        Sort = categoryFacet.SortOption,
+                        Order = categoryFacetBlocks.IndexOf(categoryFacet),
+                    });
+                    
+                }
+            }
             
+
             var dateFacetBlocks = EpiHelper.GetContentAreaContent<DateRangeFacetBlock>(srchPage.Facets.Items);
 
             foreach (var dateFacetBlock in dateFacetBlocks)

@@ -33,7 +33,7 @@ namespace MissionSearchEpi
         [FilterField]
         [DisplayName("Category")]
         public List<string> categories { get; set; }
-                        
+                
         [SortField]
         [DateFacetField]
         [DisplayName("Published Date")]
@@ -50,7 +50,7 @@ namespace MissionSearchEpi
                 
         [FacetField]
         [FilterField]
-        [DisplayName("Page Type")]
+        [DisplayName("Content Type")]
         public string contenttype { get; set; }
 
         [FacetField]
@@ -64,22 +64,23 @@ namespace MissionSearchEpi
         public string highlightsummary { get; set; }
                 
         public int sourceid { get; set; }
-               
-        public List<string> paths { get; set; }
-       
+
         [FilterField]
         [DisplayName("CMS Path")]
         public string path { get; set; }
 
+        public List<string> paths { get; set; }
+        
         public string folder { get; set; }
-
-
-
-
-
-
-
+        
         public string contentid { get; set; }
+
+        public string[] keywords { get; set; }
+
+        [FacetField]
+        [FilterField]
+        [DisplayName("Page Type")]
+        public string pagetype { get; set; }
     }
 
 }

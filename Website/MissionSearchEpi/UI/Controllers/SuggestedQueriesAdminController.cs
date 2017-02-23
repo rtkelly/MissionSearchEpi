@@ -31,7 +31,7 @@ namespace MissionSearchEpi.UI.Controllers
                 var response = client.TermSearch(null, currentPage);
 
                 //view.PagingInfo = response.BuildPagination("/SuggestedQueriesAdmin/Search?queryTerm=&page=");
-                view.PagingInfo = response.BuildPagination();
+                view.PagingInfo = response.PagingInfo;
                 view.Terms = response.Results.Select(t => t.title).ToList();
                 view.SearchServer = client.GetConnectionString();
                 view.SearchClient = client.GetClientType();
@@ -103,7 +103,7 @@ namespace MissionSearchEpi.UI.Controllers
             var response = client.TermSearch(queryTerm, currentPage);
                         
             //view.PagingInfo = response.BuildPagination("/SuggestedQueriesAdmin/Search?queryTerm=" + queryTerm);
-            view.PagingInfo = response.BuildPagination();
+            view.PagingInfo = response.PagingInfo;
             view.Terms = response.Results.Select(t => t.title).ToList();
             view.SearchServer = client.GetConnectionString();
             view.SearchClient = client.GetClientType();

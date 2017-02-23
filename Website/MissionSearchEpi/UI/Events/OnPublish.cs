@@ -118,7 +118,6 @@ namespace MissionSearchEpi.Events
                     }
                 }
             }
-
             else if (configData.IndexOnPublishAsset && e.Content is ISearchableAsset)
             {
                 var mediaData = e.Content as MediaData;
@@ -144,7 +143,7 @@ namespace MissionSearchEpi.Events
                 // if moving item then use target link instead of parent link
                 if (e.TargetLink != null && e.TargetLink.ID != 0)
                 {
-                    var pageCrawlMetadata = searchableContent.CrawlProperties as CrawlerContentSettings;
+                    var pageCrawlMetadata = searchableContent as ContentCrawlParameters;
 
                     if (pageCrawlMetadata != null)
                     {
@@ -162,8 +161,14 @@ namespace MissionSearchEpi.Events
 
                         pageCrawlMetadata.Content.Add(new CrawlerContent()
                         {
-                            Name = "path",
-                            Value = EpiHelper.GetPageTreePath(e.TargetLink.ToPageReference()),
+                            Name = "paths",
+                            Value = EpiHelper.GetPageTreePaths(e.TargetLink.ToPageReference()),
+                        });
+
+                        pageCrawlMetadata.Content.Add(new CrawlerContent()
+                        {
+                            Name = "folder",
+                            Value = EpiHelper.GetParentName(e.TargetLink.ToPageReference()),
                         });
                     }
 

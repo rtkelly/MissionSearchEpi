@@ -9,7 +9,7 @@ using MissionSearch;
 
 namespace BaseSite.MissionSearchEpi.Jobs
 {
-    [ScheduledPlugIn(DisplayName = "Search - Run Content Crawler (Partial)", DefaultEnabled = true, SortIndex = 2)]
+    [ScheduledPlugIn(DisplayName = "Search - Run Content Crawler (Partial)", DefaultEnabled = false, SortIndex = 2)]
     public class ContentPartialCrawl : MissionScheduledJobBase
     {
         public ContentPartialCrawl()

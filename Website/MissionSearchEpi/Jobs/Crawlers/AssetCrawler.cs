@@ -47,7 +47,7 @@ namespace MissionSearchEpi.Crawlers
 
             _assetIndexer = SearchFactory<T>.AssetIndexer;
 
-            _logger = SearchFactory<T>.Logger;
+            _logger = SearchFactory.Logger;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace MissionSearchEpi.Crawlers
 
             _assetIndexer = indexer;
 
-            _logger = SearchFactory<T>.Logger;
+            _logger = SearchFactory.Logger;
         }
 
         /// <summary>
@@ -95,9 +95,9 @@ namespace MissionSearchEpi.Crawlers
         /// <param name="rootFolders"></param>
         /// <param name="crawlStartDate"></param>
         /// <returns></returns>
-        public List<ISearchableAsset> CrawlFolders(IEnumerable<ContentFolder> rootFolders, DateTime? crawlStartDate)
+        public List<ContentCrawlParameters> CrawlFolders(IEnumerable<ContentFolder> rootFolders, DateTime? crawlStartDate)
         {
-            var assets = new List<ISearchableAsset>();
+            var assets = new List<ContentCrawlParameters>();
 
             foreach (var folder in rootFolders)
             {
@@ -147,9 +147,9 @@ namespace MissionSearchEpi.Crawlers
         /// <param name="folder"></param>
         /// <param name="crawlStartDate"></param>
         /// <returns></returns>
-        private List<ISearchableAsset> GetAssets(ContentReference folder, DateTime? crawlStartDate)
+        private List<ContentCrawlParameters> GetAssets(ContentReference folder, DateTime? crawlStartDate)
         {
-            var assets = new List<ISearchableAsset>();
+            var assets = new List<ContentCrawlParameters>();
 
             var mediaData = _repository.GetChildren<MediaData>(folder);
 
@@ -166,7 +166,7 @@ namespace MissionSearchEpi.Crawlers
             }
 
             return assets
-                .Where(d => crawlStartDate == null || d.Changed >= crawlStartDate.Value).ToList();
+                .Where(d => crawlStartDate == null || ((PageData)d.ContentItem).Changed >= crawlStartDate.Value).ToList();
 
         }
 
@@ -176,7 +176,7 @@ namespace MissionSearchEpi.Crawlers
         /// </summary>
         /// <param name="mediaItem"></param>
         /// <returns></returns>
-        public ISearchableAsset BuildSearchableAsset(MediaData mediaItem)
+        public ContentCrawlParameters BuildSearchableAsset(MediaData mediaItem)
         {
             var searchableAsset = mediaItem as ISearchableAsset;
 
@@ -185,10 +185,9 @@ namespace MissionSearchEpi.Crawlers
 
             var url = UrlResolver.Current.GetUrl(mediaItem.ContentLink);
 
-            if (url == null) return searchableAsset;
+            if (url == null) return null;
 
-            searchableAsset.SearchUrl = url.Replace("?epslanguage=en", string.Format("?epslanguage={0}", mediaItem.Language.Name));
-            searchableAsset.SearchId = string.Format("{0}", mediaItem.ContentGuid);
+            searchableAsset._ContentID = string.Format("{0}", mediaItem.ContentGuid);
 
             try
             {
@@ -199,51 +198,69 @@ namespace MissionSearchEpi.Crawlers
                 if (_logger != null)
                     _logger.Error(string.Format("Asset Crawler: Error Retrieving Asset {0} {1}", ex.Message, ex.StackTrace));
             }
+            
+            var pageCrawlParameters = new ContentCrawlParameters();
+            
 
-
-            var pageCrawlMetadata = new CrawlerContentSettings(searchableAsset.CrawlProperties as Dictionary<string, object>);
-            pageCrawlMetadata.Content = new List<CrawlerContent>();
-
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
-                Name = "contenttype",
-                Value = "Asset",
+                Name = "title",
+                Value = mediaItem.Name,
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "url",
+                Value = url.Replace("?epslanguage=en", string.Format("?epslanguage={0}", mediaItem.Language.Name)),
+            });
+
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "pagetype",
+                Value = "Media",
+            });
+
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "mimetype",
                 Value = mediaItem.MimeType,
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "contenttype",
+                Value = MimeType.GetDisplayName(mediaItem.MimeType),
+            });
+            
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "language",
                 Value = Languages,
             });
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "folder",
                 Value = EpiHelper.GetParentFolderName(mediaItem.ParentLink.ToPageReference()),
             });
 
-            /*
-                pageCrawlMetadata.Content.Add(new CrawlerContent()
-                {
-                    Name = "paths",
-                    Value = EpiHelper.GetPageTreePaths(mediaItem.ParentLink.ToPageReference()),
-                });
-                */
 
-            pageCrawlMetadata.Content.Add(new CrawlerContent()
+            pageCrawlParameters.Content.Add(new CrawlerContent()
+            {
+                Name = "paths",
+                Value = EpiHelper.GetPageTreePaths(mediaItem.ParentLink.ToPageReference()),
+            });
+               
+
+            pageCrawlParameters.Content.Add(new CrawlerContent()
             {
                 Name = "path",
                 Value = EpiHelper.GetFolderPath(mediaItem.ParentLink.ToPageReference()),
             });
 
-            searchableAsset.CrawlProperties = pageCrawlMetadata;
-            return searchableAsset;
+            //searchableAsset.CrawlProperties = pageCrawlMetadata;
+            pageCrawlParameters.ContentItem = searchableAsset;
+            return pageCrawlParameters;
         }
 
 

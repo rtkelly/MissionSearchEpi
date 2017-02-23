@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiSearchDemo", "Website\EPiSearchDemo.csproj", "{FACD906D-3EDA-4A3D-A5BF-D01B75914AC0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2CC7CE1D-6423-4FA7-A6D9-8E87364D885F} = {2CC7CE1D-6423-4FA7-A6D9-8E87364D885F}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionSearchCore", "..\MissionSearchCore\MissionSearchCore\MissionSearchCore.csproj", "{2CC7CE1D-6423-4FA7-A6D9-8E87364D885F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionSearchCore", "..\..\MissionSearchCore\MissionSearchCore1.1.0.0\MissionSearchCore\MissionSearchCore.csproj", "{2CC7CE1D-6423-4FA7-A6D9-8E87364D885F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

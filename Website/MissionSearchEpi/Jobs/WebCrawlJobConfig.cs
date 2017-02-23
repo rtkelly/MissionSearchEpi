@@ -16,7 +16,11 @@ namespace MissionSearchEpi.Config
         public string IndexUrlPattern { get; set; }
         public string IndexSkipUrlPattern { get; set; }
         public string LinkCleanupPattern { get; set; }
-
+        public string TitlePattern { get; set; }
+        public string SummaryPattern { get; set; }
+        public string ContentPattern { get; set; }
+        public string MetadataPattern { get; set; }
+                
         //public bool IsActive { get; set; }
         public ScheduleIntervalType RunIntervalType { get; set; }
         public int RunInterval { get; set; }

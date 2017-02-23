@@ -58,20 +58,23 @@ namespace BaseSite.Models.Pages
         [Display(Name = "Featured", Order = 0)]
         public virtual bool Featured { get; set; }
 
-        [SearchContentReference]
-        [Display(Name = "Content Area Top Left", Order = 100)]
+        
+        [Display(Name = "Content Reference Test", Order = 100)]
         [AllowedTypes(new[] { typeof(ContentBlock) })]
         public virtual ContentReference ContentBlock1 { get; set; }
 
-        [SearchContentReference]
-        [Display(Name = "Content Ref List", Order = 100)]
+        
+        [Display(Name = "Content Area Test", Order = 100)]
         [AllowedTypes(new[] { typeof(ContentBlock) })]
         public virtual ContentArea ContentBlock2 { get; set; }
 
-        [SearchContentReference]
-        [Display(Name = "Content Ref List", Order = 100)]
-        public virtual IList<ContentReference> RelatedContent { get; set; }
         
+        [Display(Name = "Content Ref List Test", Order = 100)]
+        public virtual IList<ContentReference> RelatedContent { get; set; }
+
+
+        [Display(Name = "Content Block Test", Order = 100)]
+        public virtual ContentBlock ContentBlock3 { get; set; }
        
         
     }
