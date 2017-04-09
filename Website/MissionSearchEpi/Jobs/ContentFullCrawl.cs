@@ -17,7 +17,9 @@ namespace MissionSearchEpi.Jobs
         /// <returns></returns>
         public override string Execute()
         {
-            if (SearchFactory<SearchDocument>.ContentIndexer == null)
+            var indexer = SearchFactory<SearchDocument>.ContentIndexer;
+
+            if (indexer == null)
             {
                 return "Indexer not configured";
             }
@@ -28,7 +30,7 @@ namespace MissionSearchEpi.Jobs
 
             try
             {
-                var contentCrawler = new ContentCrawler<SearchDocument>(new CrawlerSettings()
+                var contentCrawler = new ContentCrawler<SearchDocument>(indexer, new CrawlerSettings()
                 {
                     PageScrapper = new PageScrapper(),
                     ExcludedPages = TypeParser.ParseCSVIntList(configData.CrawlerPageExclusions),

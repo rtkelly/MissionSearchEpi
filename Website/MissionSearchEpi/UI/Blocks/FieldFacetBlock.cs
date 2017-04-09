@@ -15,21 +15,27 @@ namespace MissionSearchEpi.UI.Blocks
     public class FieldFacetBlock : BlockData, IFacetBlock, ISearchBlock
     {
         [Required]
-        [Display(Name = "Field Name", Order = 1)]
-        [EditorDescriptor(EditorDescriptorType = typeof(SearchDocTaggedEditorDescriptor<SearchDocument, MissionSearch.Attributes.FacetField>))]
-        public virtual String FieldName { get; set; }
-
-        [Required]
-        [Display(Name = "Facet Label", Order = 2)]
+        [Display(Name = "Heading", Order = 10)]
         public virtual String Label { get; set; }
 
         [Required]
+        [Display(Name = "Facet Field", Order = 20)]
+        [EditorDescriptor(EditorDescriptorType = typeof(SearchDocTaggedEditorDescriptor<SearchDocument, MissionSearch.Attributes.FacetField>))]
+        public virtual String FieldName { get; set; }
+                
+        [Required]
         [CultureSpecific]
-        [Display(Name = "Sort Option", Order = 3)]
+        [Display(Name = "Sort By", Order = 30)]
         [BackingType(typeof(PropertyNumber))]
         [EditorDescriptor(EditorDescriptorType = typeof(EnumEditorDescriptor<FacetSortOption>))]
         public virtual FacetSortOption SortOption { get; set; }
 
+        [Required]
+        [CultureSpecific]
+        [Display(Name = "Facet Type", Order = 40)]
+        [BackingType(typeof(PropertyNumber))]
+        [EditorDescriptor(EditorDescriptorType = typeof(EnumEditorDescriptor<RefinementType>))]
+        public virtual RefinementType RefinementType { get; set; }
 
     }
 }

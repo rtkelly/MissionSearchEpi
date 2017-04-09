@@ -60,17 +60,17 @@ namespace MissionSearchEpi.Extensions
                         end = now.AddDays((1));
                         label = string.Format("Last {0} days", range);
 
-                        start2 = now;
-                        end2 = now.AddDays((range));
+                        start2 = now.AddDays(1);
+                        end2 = start2.AddDays((range));
                         label2 = string.Format("Next {0} days", range);
                         break;
 
                     case "M":
                         start = new DateTime(now.Year, now.Month, 1).AddMonths(-range);
-                        end = new DateTime(now.Year, now.Month, 1).AddMonths(1).AddSeconds(-1);
+                        end = now;
                         label = string.Format("Last {0} Months", range);
 
-                        start2 = new DateTime(now.Year, now.Month, 1).AddMonths(1).AddSeconds(-1);
+                        start2 = now.AddDays(1);
                         end2 = new DateTime(now.Year, now.Month, 1).AddMonths(range);
                         label2 = string.Format("Next {0} Months", range);
                         break;

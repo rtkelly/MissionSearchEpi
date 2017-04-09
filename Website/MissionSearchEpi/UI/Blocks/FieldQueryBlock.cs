@@ -18,19 +18,18 @@ namespace MissionSearchEpi.UI.Blocks
 
         [Required]
         [CultureSpecific]
-        [Display(Name = "Filter Field", Order = 1, Description="Select the search index field to filter on.")]
-        //[EditorDescriptor(EditorDescriptorType = typeof(SearchDocTypedEditorDescriptor<SearchDocument, String>))]
+        [Display(Name = "Filter Field", Order = 10)]
         [EditorDescriptor(EditorDescriptorType = typeof(SearchDocTaggedEditorDescriptor<SearchDocument, FilterField>))]
         public virtual String FieldName { get; set; }
 
         [Required]
-        [Display(Name = "Filter Condition", Order = 2, Description=" ")]
+        [Display(Name = "Filter Condition", Order = 20)]
         [EditorDescriptor(EditorDescriptorType = typeof(EnumEditorDescriptor<FilterQuery.ConditionalTypes>))]
         public virtual FilterQuery.ConditionalTypes Condition { get; set; }
                
         [Required]
         [CultureSpecific]
-        [Display(Name = "Filter Value", Order = 4, Description="The value to filter on")]
+        [Display(Name = "Filter Value", Order = 30)]
         [UIHint(UIHint.Textarea)]
         public virtual String FieldValue { get; set; }
 

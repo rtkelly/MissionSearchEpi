@@ -19,7 +19,9 @@ namespace MissionSearchEpi.Jobs
         /// <returns>A status message to be stored in the database log and visible from admin mode</returns>
         public override string Execute()
         {
-            if (SearchFactory<SearchDocument>.AssetIndexer == null)
+            var indexer = SearchFactory<SearchDocument>.AssetIndexer;
+
+            if (indexer == null)
             {
                 return "Indexer not configured";
             }
@@ -28,7 +30,7 @@ namespace MissionSearchEpi.Jobs
 
             var configData = MissionConfig.GetConfigData();
 
-            var crawler = new AssetCrawler<SearchDocument>();
+            var crawler = new AssetCrawler<SearchDocument>(indexer);
 
             var results = crawler.RunCrawler(StatusCallback, configData.LastAssetCrawledDate);
 

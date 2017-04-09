@@ -433,7 +433,6 @@ C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\Sys
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\System.Web.WebPages.Razor.dll
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\WebGrease.dll
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\HtmlAgilityPack.dll
-C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\Lucene.Net.ObjectMapping.dll
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\MissionSearch.pdb
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\Antlr3.Runtime.pdb
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\Castle.Core.xml
@@ -491,4 +490,3 @@ C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\Sys
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\System.Web.WebPages.Razor.xml
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\HtmlAgilityPack.pdb
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\HtmlAgilityPack.xml
-C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\Lucene.Net.ObjectMapping.xml

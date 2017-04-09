@@ -16,7 +16,9 @@ namespace MissionSearchEpi.Jobs
         /// <returns></returns>
         public override string Execute()
         {
-            if (SearchFactory<SearchDocument>.AssetIndexer == null)
+            var indexer = SearchFactory<SearchDocument>.AssetIndexer;
+
+            if (indexer == null)
             {
                 return "Indexer not configured";
             }
@@ -25,7 +27,7 @@ namespace MissionSearchEpi.Jobs
 
             try
             {
-                var crawler = new AssetCrawler<SearchDocument>();
+                var crawler = new AssetCrawler<SearchDocument>(indexer);
 
                 var configData = MissionConfig.GetConfigData();
 

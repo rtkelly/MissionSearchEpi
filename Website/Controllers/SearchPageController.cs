@@ -9,6 +9,7 @@ using MissionSearchEpi.Extensions;
 using MissionSearch.Suggester;
 using MissionSearch.Search.Query;
 using MissionSearch.Util;
+using System;
 
 namespace BaseSite.Controllers
 {
@@ -38,19 +39,53 @@ namespace BaseSite.Controllers
                Sort = currentPage.ReturnCurrentSort(sort),
                Refinements = Request["ref"],
                EnableHighlighting = true,
-               //RefinementType = RefinementTypes.MultiSelect,
+               RefinementType = RefinementType.Refinement,
                PageSize = 10,
                CurrentPage = TypeParser.ParseInt(Request["page"], 1),
                //QueryIndexer = SearchContainer<QuerySuggesterDocument>.QuerySuggesterClient,
                //EnableQueryLogging = true,
             };
-                        
-            var response = SearchFactory<SearchResults>.SearchClient.Search(request);
 
+            //request.Sort = new System.Collections.Generic.List<SortOrder>() {
+            //    new SortOrder("title_sortable", SortOrder.SortOption.Descending),
+            //};
+
+            //request.QueryOptions.Add(new FilterQuery("title", "duck"));
+            //request.QueryOptions.Add(new FilterQuery("title", FilterQuery.ConditionalTypes.Contains, "du"));
+
+            //request.Facets.Add(new CategoryFacet("categories", "Animal", "By Animal", RefinementType.MultiSelect));
+            //request.Facets.Add(new CategoryFacet("categories", "Priority", "By Priority", RefinementType.SingleSelect));
+
+            //request.Facets.Add(new FieldFacet("pagetype", "Page Type"));
+            //request.Facets.Add(new FieldFacet("contenttype", "Content Type"));
+
+            /*
+            request.Facets.Add(new CategoryFacet("categories", "Animal", "By Pet", RefinementType.MultiSelect));
+            
+            
+            //request.Facets.Add(new CategoryFacet("categories", "Content Type", "By Content Type", RefinementType.Refinement));
+            //request.Facets.Add(new CategoryFacet("categories", "Topic", "By Topic", RefinementType.Refinement));
+
+
+            var dateFacet = new DateRangeFacet("timestamp", "Date", RefinementType.MultiSelect);
+            request.Facets.Add(dateFacet);
+
+            var seedDate = new DateTime(DateTime.Today.Year, 1, 1);
+            
+            dateFacet.Ranges.Add(new DateRange(seedDate, seedDate.AddYears(1), seedDate.Year));
+            dateFacet.Ranges.Add(new DateRange(seedDate.AddYears(-1), seedDate, seedDate.AddYears(-1).Year));
+            dateFacet.Ranges.Add(new DateRange(seedDate.AddYears(-2), seedDate.AddYears(-1), seedDate.AddYears(-2).Year));
+            dateFacet.Ranges.Add(new DateRange(null, seedDate.AddYears(-2), seedDate.AddYears(-3).Year));
+             * */
+
+            //request.QueryOptions.Add(new BoostQuery("featured", "true", 1));
+            //request.QueryOptions.Add(new BoostQuery("categories", "Press Release", 1));
+
+            var response = SearchFactory<SearchResults>.SearchClient.Search(request);
+            
             if (Request["debug"] != null)
                 view.DebugQuery = true;
-
-            
+                        
             view.QueryText = queryText;
             view.Response = response;
             view.CurrentSort = sort;
@@ -70,7 +105,6 @@ namespace BaseSite.Controllers
             var client = SearchFactory<QuerySuggesterDocument>.QuerySuggesterClient;
             
             var terms = client.GetMatches(Request["term"], 1).Take(5);
-                        
 
             return Json(terms, JsonRequestBehavior.AllowGet);
         }

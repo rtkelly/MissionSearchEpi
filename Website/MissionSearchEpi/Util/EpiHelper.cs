@@ -262,6 +262,26 @@ namespace MissionSearchEpi.Util
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public static string GetCategoryName(int categoryId)
+        {
+            var categoryRepository = ServiceLocator.Current.GetInstance<CategoryRepository>();
+
+            var rootCategory = categoryRepository.GetRoot();
+            var category = FindCategory(rootCategory, categoryId);
+
+            if (category != null)
+            {
+                return category.Name;
+            }
+        
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public static List<Category> GetRootCategories()
         {
@@ -584,6 +604,30 @@ namespace MissionSearchEpi.Util
                 return new List<string>();
 
             return GetCategories(categories, id);
+        }
+
+        public static List<string> GetCategories(CategoryList categoryList)
+        {
+            var categories = new List<string>();
+
+            var categoryRepository = ServiceLocator.Current.GetInstance<CategoryRepository>();
+
+            var rootCategory = categoryRepository.GetRoot();
+
+            if (categoryList.Any())
+            {
+                foreach (var categoryId in categoryList)
+                {
+                    var category = FindCategory(rootCategory, categoryId);
+
+                    if (category != null)
+                    {
+                        categories.Add(category.Name);
+                    }
+                }
+            }
+
+            return categories;
         }
 
         /// <summary>

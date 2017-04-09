@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiSearchDemo", "Website\EP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionSearchCore", "..\..\MissionSearchCore\MissionSearchCore1.1.0.0\MissionSearchCore\MissionSearchCore.csproj", "{2CC7CE1D-6423-4FA7-A6D9-8E87364D885F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "..\..\MissionSearchCore\MissionSearchCore1.1.0.0\UnitTestProject\UnitTestProject.csproj", "{4799736D-DD7F-4458-98A4-763707C5F8E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{2CC7CE1D-6423-4FA7-A6D9-8E87364D885F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC7CE1D-6423-4FA7-A6D9-8E87364D885F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC7CE1D-6423-4FA7-A6D9-8E87364D885F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4799736D-DD7F-4458-98A4-763707C5F8E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4799736D-DD7F-4458-98A4-763707C5F8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4799736D-DD7F-4458-98A4-763707C5F8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4799736D-DD7F-4458-98A4-763707C5F8E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

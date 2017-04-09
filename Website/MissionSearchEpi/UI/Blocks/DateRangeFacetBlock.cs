@@ -6,6 +6,7 @@ using EPiServer.Shell.ObjectEditing;
 using MissionSearchEpi.EditorDescriptors;
 using MissionSearchEpi.UI.EditorDescriptors;
 using MissionSearch.Attributes;
+using MissionSearch;
 
 
 namespace MissionSearchEpi.UI.Blocks
@@ -14,21 +15,23 @@ namespace MissionSearchEpi.UI.Blocks
     [EditorDescriptor(EditorDescriptorType = typeof(HideCategoryEditorDescriptor))]
     public class DateRangeFacetBlock : BlockData, IFacetBlock, ISearchBlock
     {
-        [Required]
-        [Display(Name = "Field Name", Order = 1)]
-        [EditorDescriptor(EditorDescriptorType = typeof(SearchDocTaggedEditorDescriptor<SearchDocument, DateFacetField>))]
-        public virtual String FieldName { get; set; }
 
         [Required]
-        [Display(Name = "Facet Label", Order = 2)]
+        [Display(Name = "Heading", Order = 10)]
         public virtual String Label { get; set; }
-                        
-        [Display(Name = "Custom Range", Order = 3)]
+        
+        [Required]
+        [Display(Name = "Facet Field", Order = 20)]
+        [EditorDescriptor(EditorDescriptorType = typeof(SearchDocTaggedEditorDescriptor<SearchDocument, DateFacetField>))]
+        public virtual String FieldName { get; set; }
+                                
+        [Display(Name = "Custom Range", Order = 30)]
         public virtual string RangeGap { get; set; }
 
         [Required]
-        [Display(Name = "Range Years", Order = 4)]
+        [Display(Name = "Range Years", Order = 40)]
         public virtual int MaxRange { get; set; }
+               
                 
     }
 }

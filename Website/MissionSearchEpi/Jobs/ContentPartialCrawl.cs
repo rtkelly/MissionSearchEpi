@@ -31,7 +31,9 @@ namespace BaseSite.MissionSearchEpi.Jobs
         /// <returns>A status message to be stored in the database log and visible from admin mode</returns>
         public override string Execute()
         {
-            if (SearchFactory<SearchDocument>.ContentIndexer == null)
+            var indexer = SearchFactory<SearchDocument>.ContentIndexer;
+
+            if (indexer == null)
             {
                 return "Indexer not configured";
             }
@@ -40,7 +42,7 @@ namespace BaseSite.MissionSearchEpi.Jobs
 
             var configData = MissionConfig.GetConfigData();
                         
-            var contentCrawler = new ContentCrawler<SearchDocument>(new CrawlerSettings()
+            var contentCrawler = new ContentCrawler<SearchDocument>(indexer, new CrawlerSettings()
                 {
                     PageScrapper = new PageScrapper(),
                     ExcludedPages = TypeParser.ParseCSVIntList(configData.CrawlerPageExclusions),

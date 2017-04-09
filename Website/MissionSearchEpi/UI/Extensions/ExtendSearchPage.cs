@@ -39,7 +39,7 @@ namespace MissionSearchEpi.Extensions
                 {
                     var fieldValue = filterBlock.FieldValue;
 
-                    if (filterBlock.FieldName == "contenttype")
+                    if (filterBlock.FieldName == "pagetype")
                     {
                         if (filterBlock.FieldValue.Contains((" OR ")))
                         {
@@ -103,54 +103,56 @@ namespace MissionSearchEpi.Extensions
 
             if (srchPage.Facets == null)
                 return facets;
-            
-            var fieldFacetBlocks = EpiHelper.GetContentAreaContent<FieldFacetBlock>(srchPage.Facets.Items);
 
-            foreach (var fieldFacet in fieldFacetBlocks)
+            var facetBlocks = EpiHelper.GetContentAreaContent<BlockData>(srchPage.Facets.Items);
+
+            foreach (var facetBlock in facetBlocks)
             {
-                facets.Add(new FieldFacet(fieldFacet.FieldName, fieldFacet.Label)
+                if(facetBlock is FieldFacetBlock)
                 {
-                    Sort = fieldFacet.SortOption,
-                    Order = fieldFacetBlocks.IndexOf(fieldFacet),
-                });
-            }
+                    var fieldFacet = facetBlock as FieldFacetBlock;
 
-            var categoryFacetBlocks = EpiHelper.GetContentAreaContent<CategoryFacetBlock>(srchPage.Facets.Items);
-
-            foreach (var categoryFacet in categoryFacetBlocks)
-            {
-                var list = categoryFacet.CategoryName;
-
-                var categories = EpiHelper.GetCategoryNames(list);
-
-                foreach (var category in categories)
-                {
-                    facets.Add(new CategoryFacet("categories", category, category)
+                    facets.Add(new FieldFacet(fieldFacet.FieldName, fieldFacet.Label)
                     {
-                        Sort = categoryFacet.SortOption,
-                        Order = categoryFacetBlocks.IndexOf(categoryFacet),
+                        Sort = fieldFacet.SortOption,
+                        Order = facetBlocks.IndexOf(facetBlock),
+                        RefinementOption = fieldFacet.RefinementType,
                     });
-                    
                 }
+                else if(facetBlock is CategoryFacetBlock)
+                {
+                    var categoryFacet = facetBlock as CategoryFacetBlock;
+
+                    var list = categoryFacet.CategoryName;
+
+                    if (list.Any())
+                    {
+                        var categoryName = EpiHelper.GetCategoryName(list.First());
+                        
+                        facets.Add(new CategoryFacet("categories", categoryName, categoryFacet.Label)
+                        {
+                            Sort = categoryFacet.SortOption,
+                            Order = facetBlocks.IndexOf(facetBlock),
+                            RefinementOption = categoryFacet.RefinementType,
+                        });
+
+                    }
+                }
+                else if(facetBlock is DateRangeFacetBlock)
+                {
+                    var dateFacetBlock = facetBlock as DateRangeFacetBlock;
+                    var dateFacet = ProcessDateFacetBlock(dateFacetBlock, facetBlocks.IndexOf(facetBlock));
+                    facets.Add(dateFacet);
+                }
+                else if (facetBlock is RangeFacetBlock)
+                {
+                    var rangeFacetBlock = facetBlock as RangeFacetBlock;
+                    var rangeFacet = ProcessRangeFacetBlock(rangeFacetBlock, facetBlocks.IndexOf(facetBlock));
+                    facets.Add(rangeFacet);
+                }
+                
+
             }
-            
-
-            var dateFacetBlocks = EpiHelper.GetContentAreaContent<DateRangeFacetBlock>(srchPage.Facets.Items);
-
-            foreach (var dateFacetBlock in dateFacetBlocks)
-            {
-                var dateFacet = ProcessDateFacetBlock(dateFacetBlock, dateFacetBlocks.IndexOf(dateFacetBlock));
-                facets.Add(dateFacet);
-            }
-
-            var rangeFacetBlocks = EpiHelper.GetContentAreaContent<RangeFacetBlock>(srchPage.Facets.Items);
-
-            foreach (var rangeFacetBlock in rangeFacetBlocks)
-            {
-                var rangeFacet = ProcessRangeFacetBlock(rangeFacetBlock, rangeFacetBlocks.IndexOf(rangeFacetBlock));
-                facets.Add(rangeFacet);
-            }
-
             
             return facets;
 
@@ -244,7 +246,7 @@ namespace MissionSearchEpi.Extensions
                     
                     foreach (var result in results)
                     {
-                        guidList.Add(result.ContentGuid.ToString());
+                        guidList.Add(result.ContentLink.ID.ToString());
                     }
                 }
             }
@@ -258,7 +260,7 @@ namespace MissionSearchEpi.Extensions
                     var req = new SearchRequest();
 
                     req.EnableHighlighting = true;
-                    req.QueryText = string.Format("id:\"{0}\"", guid);
+                    req.QueryText = string.Format("contentid:\"{0}\"", guid);
 
                     var resp = srchClient.Search(req);
 
