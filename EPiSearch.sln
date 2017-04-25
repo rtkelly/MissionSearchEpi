@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionSearchCore", "..\..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "..\..\MissionSearchCore\MissionSearchCore1.1.0.0\UnitTestProject\UnitTestProject.csproj", "{4799736D-DD7F-4458-98A4-763707C5F8E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneClient", "..\..\MissionSearchCore\MissionSearchCore1.1.0.0\LuceneClient\LuceneClient.csproj", "{FCBEB754-A728-4C26-88C0-2A06BE905177}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{4799736D-DD7F-4458-98A4-763707C5F8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4799736D-DD7F-4458-98A4-763707C5F8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4799736D-DD7F-4458-98A4-763707C5F8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCBEB754-A728-4C26-88C0-2A06BE905177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCBEB754-A728-4C26-88C0-2A06BE905177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCBEB754-A728-4C26-88C0-2A06BE905177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCBEB754-A728-4C26-88C0-2A06BE905177}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

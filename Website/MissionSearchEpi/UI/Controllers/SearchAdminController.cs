@@ -49,7 +49,7 @@ namespace MissionSearchEpi.Controllers
 
                 if (result.Refinements.Any())
                 {
-                    viewModel.IndexCounts = result.Refinements[0].Items.ToDictionary(t => t.Refinement, t => t.Count);
+                    viewModel.IndexCounts = result.Refinements[0].Items.ToDictionary(t => t.DisplayName, t => t.Count);
                 }
 
                 

@@ -490,3 +490,5 @@ C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\Sys
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\System.Web.WebPages.Razor.xml
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\HtmlAgilityPack.pdb
 C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\HtmlAgilityPack.xml
+C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\MissionSearch.LuceneClient.dll
+C:\iisweb\MissionSearch\MissionSearchEpi\MissionSearchEpi1.1.0.0\Website\bin\MissionSearch.LuceneClient.pdb

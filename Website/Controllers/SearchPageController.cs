@@ -39,7 +39,7 @@ namespace BaseSite.Controllers
                Sort = currentPage.ReturnCurrentSort(sort),
                Refinements = Request["ref"],
                EnableHighlighting = true,
-               RefinementType = RefinementType.Refinement,
+               //RefinementType = RefinementType.Refinement,
                PageSize = 10,
                CurrentPage = TypeParser.ParseInt(Request["page"], 1),
                //QueryIndexer = SearchContainer<QuerySuggesterDocument>.QuerySuggesterClient,
@@ -54,9 +54,10 @@ namespace BaseSite.Controllers
             //request.QueryOptions.Add(new FilterQuery("title", FilterQuery.ConditionalTypes.Contains, "du"));
 
             //request.Facets.Add(new CategoryFacet("categories", "Animal", "By Animal", RefinementType.MultiSelect));
-            //request.Facets.Add(new CategoryFacet("categories", "Priority", "By Priority", RefinementType.SingleSelect));
+            
+            request.Facets.Add(new CategoryFacet("categories", "Organ System", "OrganSystem", RefinementType.Multi_Select));
 
-            //request.Facets.Add(new FieldFacet("pagetype", "Page Type"));
+            request.Facets.Add(new FieldFacet("pagetype", "Page Type", RefinementType.Multi_Select));
             //request.Facets.Add(new FieldFacet("contenttype", "Content Type"));
 
             /*

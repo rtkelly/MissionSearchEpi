@@ -518,6 +518,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MissionSearchCore\MissionSearchCore1.1.0.0\LuceneClient\LuceneClient.csproj">
+      <Project>{fcbeb754-a728-4c26-88c0-2a06be905177}</Project>
+      <Name>LuceneClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\MissionSearchCore\MissionSearchCore1.1.0.0\MissionSearchCore\MissionSearchCore.csproj">
       <Project>{2cc7ce1d-6423-4fa7-a6d9-8e87364d885f}</Project>
       <Name>MissionSearchCore</Name>

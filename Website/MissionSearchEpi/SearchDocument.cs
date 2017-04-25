@@ -81,6 +81,9 @@ namespace MissionSearchEpi
         [FilterField]
         [DisplayName("Page Type")]
         public string pagetype { get; set; }
+
+
+        public DateTime lastcrawled { get; set; }
     }
 
 }

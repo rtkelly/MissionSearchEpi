@@ -386,12 +386,18 @@ namespace MissionSearchEpi.Crawlers
                 return list;
 
             var pageProps = contentData.GetType().GetProperties();
+                        
 
             foreach (var pageProp in pageProps)
             {
                 try {
                     if (pageProp.Name == "ContentLink")
                         continue;
+
+                    if (pageProp.Name == "Item")
+                        continue;
+
+                    //_logger.Debug(string.Format("Processing {0}", pageProp.Name));
 
                     var propValue = pageProp.GetValue(contentData);
 
@@ -480,7 +486,7 @@ namespace MissionSearchEpi.Crawlers
                 }
                 catch(Exception ex)
                 {
-                    _logger.Debug(string.Format("{0} {1}", ex.Message, ex.StackTrace));
+                    _logger.Error(string.Format("{0} \"{1}\" {2}", ex.Message, pageProp.Name, ex.StackTrace));
                     
                 }
             }
