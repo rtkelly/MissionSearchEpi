@@ -1,8 +1,0 @@
-<browsers>
-    <browser refID="Default">
-        <controlAdapters>
-            <adapter controlType="EPiServer.UI.Admin.DatabaseJob"
-                     adapterType="BaseSite.Business.ScheduledJobs.Adaptors.DatabaseJobAdapter" />
-        </controlAdapters>
-    </browser>
-</browsers>
