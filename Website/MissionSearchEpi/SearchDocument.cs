@@ -84,6 +84,9 @@ namespace MissionSearchEpi
 
 
         public DateTime lastcrawled { get; set; }
+
+
+        public DateTime publisheddate { get; set; }
     }
 
 }

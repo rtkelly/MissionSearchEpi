@@ -228,25 +228,29 @@ namespace MissionSearchEpi.Extensions
             if (srchPage.SuggestedResults == null)
                 return suggResults;
 
-            //var suggestedResultBlocks = srchPage.SuggestedResults.FilteredContents.OfType<SuggestedResultsBlock>();
             var suggestedResultBlocks = EpiHelper.GetContentAreaContent<SuggestedResultsBlock>(srchPage.SuggestedResults.Items);
             
-            var terms = queryText.Split(' ');
-
             var guidList = new List<string>();
+
+            var queryIntercept = queryText.ToLower();
 
             foreach (var suggestedBlock in suggestedResultBlocks)
             {
-                var suggestedTerms = suggestedBlock.Terms.Split(',');
+                if (string.IsNullOrEmpty(suggestedBlock.Terms))
+                    continue;
 
-                if (terms.Intersect(suggestedTerms).Any())
+                var suggestedTerms = suggestedBlock.Terms.ToLower().Split(',');
+
+                if (suggestedTerms.Contains(queryIntercept))
                 {
-                    //var results = suggestedBlock.SuggestedResults.FilteredContents.OfType<IContent>();
                     var results = EpiHelper.GetContentAreaContent<IContent>(suggestedBlock.SuggestedResults.Items);
                     
                     foreach (var result in results)
                     {
-                        guidList.Add(result.ContentLink.ID.ToString());
+                        var id = result.ContentLink.ID.ToString();
+
+                        if(!guidList.Contains(id))
+                            guidList.Add(id);
                     }
                 }
             }
