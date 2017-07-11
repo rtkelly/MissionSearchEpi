@@ -1,6 +1,6 @@
 ﻿using EPiServer.Shell.ObjectEditing;
 using EPiServer.Shell.ObjectEditing.EditorDescriptors;
-using MissionSearchEpi.EditorDescriptors;
+using MissionSearchEpi.UI.EditorDescriptors;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,20 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using EPiServer;
-using EPiServer.Framework.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using EPiServer.Core;
-using EPiServer.Web.Mvc;
-using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
-using EPiServer.SpecializedProperties;
-using EPiServer.Shell.ObjectEditing;
-using MissionSearch;
-using System.Collections.Generic;
-using System.Linq;
-using BaseSite.Business.EditorDescriptors;
-using BaseSite.Models;
 using MissionSearchEpi;
-using System.Web;
 using MissionSearchEpi.UI.Blocks;
 
 namespace BaseSite.Models.Pages

@@ -10,6 +10,7 @@ using MissionSearch.Suggester;
 using MissionSearch.Search.Query;
 using MissionSearch.Util;
 using System;
+using System.Collections.Generic;
 
 namespace BaseSite.Controllers
 {
@@ -39,7 +40,7 @@ namespace BaseSite.Controllers
                Sort = currentPage.ReturnCurrentSort(sort),
                Refinements = Request["ref"],
                EnableHighlighting = true,
-               RefinementType = RefinementType.Single_Select,
+               //RefinementType = RefinementType.Single_Select,
                PageSize = 10,
                CurrentPage = TypeParser.ParseInt(Request["page"], 1),
                //QueryIndexer = SearchContainer<QuerySuggesterDocument>.QuerySuggesterClient,
@@ -55,16 +56,18 @@ namespace BaseSite.Controllers
 
             //request.Facets.Add(new CategoryFacet("categories", "Animal", "By Animal", RefinementType.MultiSelect));
             
-            request.Facets.Add(new CategoryFacet("categories", "Organ System", "OrganSystem", RefinementType.Single_Select));
+            request.Facets.Add(new CategoryFacet("categories", "Organ System", "Organ System", RefinementType.Multi_Select));
+            request.Facets.Add(new CategoryFacet("categories", "Topic", "Topic", RefinementType.Refinement));
+            request.Facets.Add(new CategoryFacet("categories", "Content Type", "Content Type", RefinementType.Refinement));
+            request.Facets.Add(new FieldFacet("pagetype", "Page Type", RefinementType.Refinement));
 
-            request.Facets.Add(new FieldFacet("pagetype", "Page Type", RefinementType.Multi_Select));
             //request.Facets.Add(new FieldFacet("contenttype", "Content Type"));
 
             /*
             request.Facets.Add(new CategoryFacet("categories", "Animal", "By Pet", RefinementType.MultiSelect));
             
             
-            //request.Facets.Add(new CategoryFacet("categories", "Content Type", "By Content Type", RefinementType.Refinement));
+            
             //request.Facets.Add(new CategoryFacet("categories", "Topic", "By Topic", RefinementType.Refinement));
 
 
@@ -105,7 +108,7 @@ namespace BaseSite.Controllers
         {
             var client = SearchFactory<QuerySuggesterDocument>.QuerySuggesterClient;
             
-            var terms = client.GetMatches(Request["term"], 1).Take(5);
+            var terms = (client != null) ? client.GetMatches(Request["term"], 1).Take(5) : new List<string>();
 
             return Json(terms, JsonRequestBehavior.AllowGet);
         }
