@@ -112,8 +112,8 @@ namespace MissionSearchEpi.Jobs
 
             if (!string.IsNullOrEmpty(jobConfig.MetadataPattern))
                 job.MetadataPattern = jobConfig.MetadataPattern.Replace('\r', ' ').Split('\n').Where(p => p != string.Empty).ToList();
-            
-            job.TitlePattern = jobConfig.TitlePattern;
+
+            job.TitlePattern = jobConfig.TitlePattern.Replace('\r', ' ').Split('\n').Where(p => p != string.Empty).ToList();
             job.SummaryPattern = jobConfig.SummaryPattern;
             job.LinkCleanupPattern = new List<string>()
                 {

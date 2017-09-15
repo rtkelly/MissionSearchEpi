@@ -56,10 +56,12 @@ namespace BaseSite.Controllers
 
             //request.Facets.Add(new CategoryFacet("categories", "Animal", "By Animal", RefinementType.MultiSelect));
             
-            request.Facets.Add(new CategoryFacet("categories", "Organ System", "Organ System", RefinementType.Multi_Select));
+            
+            //request.Facets.Add(new CategoryFacet("categories", "Organ System", "Organ System", RefinementType.Multi_Select));
             request.Facets.Add(new CategoryFacet("categories", "Topic", "Topic", RefinementType.Refinement));
-            request.Facets.Add(new CategoryFacet("categories", "Content Type", "Content Type", RefinementType.Refinement));
-            request.Facets.Add(new FieldFacet("pagetype", "Page Type", RefinementType.Refinement));
+            //request.Facets.Add(new CategoryFacet("categories", "Content Type", "Content Type", RefinementType.Refinement));
+            //request.Facets.Add(new FieldFacet("pagetype", "Page Type", RefinementType.Refinement));
+            request.Facets.Add(new PivotFacet("categories,pagetype", "Pivot Test"));
 
             //request.Facets.Add(new FieldFacet("contenttype", "Content Type"));
 
