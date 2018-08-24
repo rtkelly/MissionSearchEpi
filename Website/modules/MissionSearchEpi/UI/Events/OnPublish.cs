@@ -30,6 +30,7 @@ namespace MissionSearchEpi.Events
             var contentEvents = ServiceLocator.Current.GetInstance<IContentEvents>();
             contentEvents.PublishedContent += contentEvents_PublishedContent;
             contentEvents.MovedContent += contentEvents_MovingContent;
+            //contentEvents.SavingContent += 
 
         }
 
@@ -67,6 +68,7 @@ namespace MissionSearchEpi.Events
         /// <param name="e"></param>
         void contentEvents_PublishedContent(object sender, ContentEventArgs e)
         {
+         
             HostingEnvironment.QueueBackgroundWorkItem(ct =>
             {
                 try
@@ -89,16 +91,20 @@ namespace MissionSearchEpi.Events
         {
             var configData = MissionConfig.GetConfigData();
 
+            var pData = e.Content as PageData;
+
+            var repository = ServiceLocator.Current.GetInstance<IContentRepository>();
+
+
             if (configData.IndexOnPublishContent && e.Content.GetType().IsSubclassOf(typeof(BlockData)))
             {
-                var repository = ServiceLocator.Current.GetInstance<IContentRepository>();
-
+                
                 var pages = repository.GetReferencesToContent(e.Content.ContentLink, false);
 
                 if (pages == null)
                     return;
 
-                var contentCrawler = new ContentCrawler<SearchDocument>(new CrawlerSettings());
+                var contentCrawler = new ContentCrawler<SearchDocument>(repository, new CrawlerSettings());
                 
                 foreach (var pageRef in pages)
                 {
@@ -132,8 +138,8 @@ namespace MissionSearchEpi.Events
             else if (configData.IndexOnPublishContent && e.Content is ISearchableContent)
             {
                 var pageData = e.Content as PageData;
-
-                var contentCrawler = new ContentCrawler<SearchDocument>(new CrawlerSettings());
+                
+                var contentCrawler = new ContentCrawler<SearchDocument>(repository, new CrawlerSettings());
 
                 var searchableContent = contentCrawler.BuildSearchablePage(pageData);
 
