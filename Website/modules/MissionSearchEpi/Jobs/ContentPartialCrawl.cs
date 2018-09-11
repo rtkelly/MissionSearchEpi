@@ -6,6 +6,7 @@ using MissionSearchEpi;
 using MissionSearchEpi.Crawlers;
 using MissionSearch.Util;
 using MissionSearch;
+using EPiServer;
 
 namespace MissionSearchEpi.Jobs
 {
@@ -41,8 +42,10 @@ namespace MissionSearchEpi.Jobs
             OnStatusChanged(string.Format("Starting Crawl at {0:hh mm ss tt}", DateTime.Now));
 
             var configData = MissionConfig.GetConfigData();
-                        
-            var contentCrawler = new ContentCrawler<SearchDocument>(indexer, new CrawlerSettings()
+
+            var repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentLoader>();
+
+            var contentCrawler = new ContentCrawler<SearchDocument>(indexer, repository, new CrawlerSettings()
                 {
                     PageScrapper = new PageScrapper(),
                     ExcludedPages = TypeParser.ParseCSVIntList(configData.CrawlerPageExclusions),

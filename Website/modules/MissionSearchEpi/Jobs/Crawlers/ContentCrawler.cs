@@ -17,7 +17,7 @@ namespace MissionSearchEpi.Crawlers
 
         private CrawlerSettings _crawlSettings;
 
-        private IContentRepository Repository;
+        private readonly IContentLoader Repository;
 
         private ILogger _logger { get; set; }
 
@@ -27,9 +27,9 @@ namespace MissionSearchEpi.Crawlers
         /// 
         /// </summary>
         /// <param name="crawlSettings"></param>
-        public ContentCrawler(CrawlerSettings crawlSettings)
+        public ContentCrawler(IContentLoader contentLoader, CrawlerSettings crawlSettings)
         {
-            Repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
+            Repository = contentLoader;
 
             _contentIndexer = SearchFactory<T>.ContentIndexer;
 
@@ -43,9 +43,9 @@ namespace MissionSearchEpi.Crawlers
         /// </summary>
         /// <param name="indexer"></param>
         /// <param name="crawlSettings"></param>
-        public ContentCrawler(IContentIndexer<T> indexer, CrawlerSettings crawlSettings)
+        public ContentCrawler(IContentIndexer<T> indexer, IContentLoader contentLoader, CrawlerSettings crawlSettings)
         {
-            Repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
+            Repository = contentLoader;
 
             _contentIndexer = indexer;
 
@@ -120,39 +120,36 @@ namespace MissionSearchEpi.Crawlers
                     continue;
 
                 var pageReference = page.ContentLink.ToPageReference();
-
-                // do not index archived content
-                if (page.StopPublish > DateTime.Now)
+                                
+                if (page is ISearchableContent)
                 {
-                    if (page is ISearchableContent)
+                    if (crawlStartDate == null || page.Changed >= crawlStartDate)
                     {
-                        if (crawlStartDate == null || page.Changed >= crawlStartDate)
+                        var pageLanguages = DataFactory.Instance.GetLanguageBranches(pageReference);
+
+                        foreach (var pageInstance in pageLanguages)
                         {
-                            var pageLanguages = DataFactory.Instance.GetLanguageBranches(pageReference);
+                            var clone = pageInstance.CreateWritableClone();
 
-                            foreach (var pageInstance in pageLanguages)
+                            var searchablePage = BuildSearchablePage(clone);
+
+                            if (searchablePage != null)
                             {
-                                var clone = pageInstance.CreateWritableClone();
-
-                                var searchablePage = BuildSearchablePage(clone);
-
-                                if (searchablePage != null)
-                                {
-                                    searchablePages.Add(searchablePage);
-                                }
+                                searchablePages.Add(searchablePage);
                             }
-
                         }
-                        
+
                     }
 
-                    var childPages = GetSearchablePages(pageReference, crawlStartDate);
-
-                    if (childPages.Any())
-                    {
-                        searchablePages.AddRange(childPages);
-                    }
                 }
+                
+                var childPages = GetSearchablePages(pageReference, crawlStartDate);
+
+                if (childPages.Any())
+                {
+                    searchablePages.AddRange(childPages);
+                }
+                
 
             }
 
@@ -261,83 +258,87 @@ namespace MissionSearchEpi.Crawlers
             if (searchablePage == null)
                 return null;
 
+            // Exclude archived items if republished 
+            if (page.StopPublish != null && page.StopPublish < DateTime.Now)
+                return null;
+
             searchablePage._ContentID = string.Format("{0}-{1}", page.ContentGuid, page.Language.Name);
        
-            var pageProps = new ContentCrawlProxy();
+            var indexDocProps = new ContentCrawlProxy();
             
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "title",
                 Value = page.Name,
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "timestamp",
                 Value = page.Changed,
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "url",
                 Value = page.LinkURL.Replace("epslanguage=en", string.Format("epslanguage={0}", page.Language.Name)),
             });
             
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "contentid",
                 Value = page.ContentLink.ID.ToString(),
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "categories",
                 Value = EpiHelper.GetCategoryPaths(page.Category),
             });
                         
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "hostname",
                 Value = EpiHelper.GetSitePath(page.ContentLink),
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "folder",
                 Value = EpiHelper.GetParentName(page.ParentLink.ToPageReference()),
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "path",
                 Value = EpiHelper.GetPageTreePath(page.ParentLink.ToPageReference()),
             });
             
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "paths",
                 Value = EpiHelper.GetPageTreePaths(page.ParentLink.ToPageReference()),
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "pagetype",
                 Value = page.PageTypeName,
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "mimetype",
                 Value = "text/html",
             });
 
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "contenttype",
                 Value = "HTML",
             });
             
-            pageProps.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "language",
                 Value = new List<string>()
@@ -352,7 +353,7 @@ namespace MissionSearchEpi.Crawlers
             {
                 var scrapContent = _crawlSettings.PageScrapper.ScrapPage(EpiHelper.GetExternalURL(page));
 
-                pageProps.Content.Add(new CrawlerContent()
+                indexDocProps.Content.Add(new CrawlerContent()
                 {
                     Name = MissionSearch.Global.ContentField,
                     Value = scrapContent,
@@ -364,13 +365,13 @@ namespace MissionSearchEpi.Crawlers
 
             if (parsedBlockText.Any())
             {
-                pageProps.Content.AddRange(parsedBlockText);
+                indexDocProps.Content.AddRange(parsedBlockText);
             }
 
             //searchablePage.CrawlProperties = pageCrawlMetadata;
-            pageProps.ContentItem = searchablePage;
+            indexDocProps.ContentItem = searchablePage;
 
-            return pageProps;
+            return indexDocProps;
         }
 
         /// <summary>
@@ -544,7 +545,8 @@ namespace MissionSearchEpi.Crawlers
             return list;
         }
 
-        
+
+       
 
     }
 

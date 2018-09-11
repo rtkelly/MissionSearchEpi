@@ -199,68 +199,73 @@ namespace MissionSearchEpi.Crawlers
                     _logger.Error(string.Format("Asset Crawler: Error Retrieving Asset {0} {1}", ex.Message, ex.StackTrace));
             }
             
-            var pageCrawlParameters = new ContentCrawlProxy();
+            var indexDocProps = new ContentCrawlProxy();
             
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "title",
                 Value = mediaItem.Name,
             });
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "url",
                 Value = url.Replace("?epslanguage=en", string.Format("?epslanguage={0}", mediaItem.Language.Name)),
             });
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "pagetype",
                 Value = "Media",
             });
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "mimetype",
                 Value = mediaItem.MimeType,
             });
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "contenttype",
                 Value = MimeType.GetDisplayName(mediaItem.MimeType),
             });
             
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "language",
                 Value = Languages,
             });
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "folder",
                 Value = EpiHelper.GetParentFolderName(mediaItem.ParentLink.ToPageReference()),
             });
 
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "paths",
                 Value = EpiHelper.GetPageTreePaths(mediaItem.ParentLink.ToPageReference()),
             });
                
 
-            pageCrawlParameters.Content.Add(new CrawlerContent()
+            indexDocProps.Content.Add(new CrawlerContent()
             {
                 Name = "path",
                 Value = EpiHelper.GetFolderPath(mediaItem.ParentLink.ToPageReference()),
             });
 
-            //searchableAsset.CrawlProperties = pageCrawlMetadata;
-            pageCrawlParameters.ContentItem = searchableAsset;
-            return pageCrawlParameters;
+            indexDocProps.Content.Add(new CrawlerContent()
+            {
+                Name = "timestamp",
+                Value = mediaItem.Changed,
+            });
+
+            indexDocProps.ContentItem = searchableAsset;
+            return indexDocProps;
         }
 
 

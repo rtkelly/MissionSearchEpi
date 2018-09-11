@@ -4,7 +4,7 @@ using MissionSearchEpi.Crawlers;
 using MissionSearchEpi.Config;
 using MissionSearch.Util;
 using MissionSearch;
-
+using EPiServer;
 
 namespace MissionSearchEpi.Jobs
 {
@@ -30,7 +30,8 @@ namespace MissionSearchEpi.Jobs
 
             try
             {
-                var contentCrawler = new ContentCrawler<SearchDocument>(indexer, new CrawlerSettings()
+                var repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentLoader>();
+                var contentCrawler = new ContentCrawler<SearchDocument>(indexer, repository, new CrawlerSettings()
                 {
                     PageScrapper = null,
                     ExcludedPages = TypeParser.ParseCSVIntList(configData.CrawlerPageExclusions),
