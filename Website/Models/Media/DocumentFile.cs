@@ -29,6 +29,7 @@ namespace BaseSite.Models.Media
 
         [CultureSpecific]
         [Editable(true)]
+        [SearchIndex("timestamp")]
         [Display(Name = "Publication Date", GroupName = SystemTabNames.Content,Order = 2)]
         public virtual DateTime PubDate { get; set; }
                 
@@ -57,6 +58,7 @@ namespace BaseSite.Models.Media
             }
         }
 
+        [Ignore]
         public string _ContentID { get; set; }
     }
 }

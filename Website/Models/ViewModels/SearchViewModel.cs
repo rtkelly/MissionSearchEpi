@@ -56,7 +56,7 @@ namespace BaseSite.Models.ViewModels
         {
             get
             {
-                var url = string.Format("{0}&q={1}", CurrentPage.LinkURL, HttpContext.Current.Request["q"]);
+                var url = string.Format("{0}?q={1}", CurrentPage.LinkURL, HttpContext.Current.Request["q"]);
 
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request["sort"]))
                 {

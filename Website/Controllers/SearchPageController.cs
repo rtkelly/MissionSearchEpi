@@ -7,7 +7,6 @@ using MissionSearch;
 using MissionSearchEpi;
 using MissionSearchEpi.Extensions;
 using MissionSearch.Suggester;
-using MissionSearch.Search.Query;
 using MissionSearch.Util;
 using System;
 using System.Collections.Generic;
@@ -32,7 +31,7 @@ namespace BaseSite.Controllers
             var queryText = Request["q"];
             var sort = Request["sort"];
                         
-            var request = new SearchRequest()
+            var searchRequest = new SearchRequest()
             {
                QueryText = queryText,
                QueryOptions = currentPage.ReturnQueryOptions(),
@@ -45,55 +44,29 @@ namespace BaseSite.Controllers
                CurrentPage = TypeParser.ParseInt(Request["page"], 1),
                //QueryIndexer = SearchContainer<QuerySuggesterDocument>.QuerySuggesterClient,
                //EnableQueryLogging = true,
+               BoostSettings = currentPage.BoostSettings,
             };
-
-            //request.Sort = new System.Collections.Generic.List<SortOrder>() {
-            //    new SortOrder("title_sortable", SortOrder.SortOption.Descending),
-            //};
-
-            //request.QueryOptions.Add(new FilterQuery("title", "duck"));
-            //request.QueryOptions.Add(new FilterQuery("title", FilterQuery.ConditionalTypes.Contains, "du"));
-
-            //request.Facets.Add(new CategoryFacet("categories", "Animal", "By Animal", RefinementType.MultiSelect));
+                       
             
-            
-            //request.Facets.Add(new CategoryFacet("categories", "Organ System", "Organ System", RefinementType.Multi_Select));
-            request.Facets.Add(new CategoryFacet("categories", "Topic", "Topic", RefinementType.Refinement));
-            //request.Facets.Add(new CategoryFacet("categories", "Content Type", "Content Type", RefinementType.Refinement));
-            //request.Facets.Add(new FieldFacet("pagetype", "Page Type", RefinementType.Refinement));
-            request.Facets.Add(new PivotFacet("categories,pagetype", "Pivot Test"));
-
-            //request.Facets.Add(new FieldFacet("contenttype", "Content Type"));
-
-            /*
-            request.Facets.Add(new CategoryFacet("categories", "Animal", "By Pet", RefinementType.MultiSelect));
-            
-            
-            
-            //request.Facets.Add(new CategoryFacet("categories", "Topic", "By Topic", RefinementType.Refinement));
-
-
-            var dateFacet = new DateRangeFacet("timestamp", "Date", RefinementType.MultiSelect);
-            request.Facets.Add(dateFacet);
-
-            var seedDate = new DateTime(DateTime.Today.Year, 1, 1);
-            
-            dateFacet.Ranges.Add(new DateRange(seedDate, seedDate.AddYears(1), seedDate.Year));
-            dateFacet.Ranges.Add(new DateRange(seedDate.AddYears(-1), seedDate, seedDate.AddYears(-1).Year));
-            dateFacet.Ranges.Add(new DateRange(seedDate.AddYears(-2), seedDate.AddYears(-1), seedDate.AddYears(-2).Year));
-            dateFacet.Ranges.Add(new DateRange(null, seedDate.AddYears(-2), seedDate.AddYears(-3).Year));
-             * */
-
-            //request.QueryOptions.Add(new BoostQuery("featured", "true", 1));
-            //request.QueryOptions.Add(new BoostQuery("categories", "Press Release", 1));
-
-            var response = SearchFactory<SearchResults>.SearchClient.Search(request);
+            var searchResponse = searchRequest
+                    //.FilterByDateRange("timestamp", new DateTime(2016, 1, 1), new DateTime(2016, 3, 1))
+                    //.FilterByTerm("title", "test")
+                    //.FilterByTerm("title", "art", FilterQuery.ConditionalTypes.Contains)
+                    .AddCategoryFacet("categories", "Topic")
+                    //.AddCategoryFacet("categories", "Content Type")
+                    //.AddTermFacet("pagetype", "Page Type")
+                    //.AddDateRangeFacet("timestamp", "Date")
+                    //.AddPivotFacet("categories,pagetype", "Pivot Test")
+                    //.AddSort("title_sortable", SortOrder.SortOption.Descending)
+                    //.AddBoostQuery("featured", "true", 1)
+                    //.AddBoostQuery("categories", "Press Release", 1)
+                    .Search<SearchResults>();
             
             if (Request["debug"] != null)
                 view.DebugQuery = true;
                         
             view.QueryText = queryText;
-            view.Response = response;
+            view.Response = searchResponse;
             view.CurrentSort = sort;
             view.SuggestedResults = currentPage.ReturnSuggestedResults<SearchResults>(queryText);
             

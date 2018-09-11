@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BaseSite.modules.MissionSearchEpi.UI.Blocks;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
 using MissionSearchEpi;
@@ -17,7 +18,7 @@ namespace BaseSite.Models.Pages
         public virtual int PageSize { get; set; }
 
         [Display(Name = "Query Options", Order = 300)]
-        [AllowedTypes(typeof(FieldQueryBlock), typeof(BoostQueryBlock), typeof(QueryOptionBlock))]
+        [AllowedTypes(typeof(FieldQueryBlock), typeof(BoostQueryBlock), typeof(QueryOptionBlock), typeof(CategoryBoostBlock))]
         public virtual ContentArea QueryOptions { get; set; }
 
         [Display(Name = "Facets", Order = 400)]
@@ -35,7 +36,9 @@ namespace BaseSite.Models.Pages
         [CultureSpecific]
         [Display(Name = "No Results Message", Order = 700)]
         public virtual XhtmlString NoResults { get; set; }
+                
 
-      
+        [Display(Name = "Boosting", Order = 800)]
+        public virtual BoostBlock BoostSettings { get; set; }
     }
 }

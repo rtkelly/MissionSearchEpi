@@ -64,7 +64,7 @@ namespace BaseSite.Models.Properties
             }
         }
 
-        public override IPropertyControl CreatePropertyControl()
+        public IPropertyControl CreatePropertyControl()
         {
             //No support for legacy edit mode
             return null;
