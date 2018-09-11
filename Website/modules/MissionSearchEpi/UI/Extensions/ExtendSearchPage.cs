@@ -1,4 +1,5 @@
-﻿using EPiServer.Core;
+﻿using BaseSite.modules.MissionSearchEpi.UI.Blocks;
+using EPiServer.Core;
 using MissionSearch;
 using MissionSearch.Search.Facets;
 using MissionSearch.Search.Query;
@@ -28,6 +29,18 @@ namespace MissionSearchEpi.Extensions
                 foreach (var bst in boostParms)
                 {
                     extraParms.Add(new BoostQuery(bst.FieldName, bst.FieldValue, bst.Boost));
+                }
+
+                var boostSettings = EpiHelper.GetContentAreaContent<CategoryBoostBlock>(srchPage.QueryOptions.Items);
+
+                foreach (var bst in boostSettings)
+                {
+                    var categories = EpiHelper.GetCategoryPaths(bst.Categories);
+
+                    foreach (var category in categories)
+                    {
+                        extraParms.Add(new BoostQuery("categories", category, bst.Boost));
+                    }
                 }
 
                 var filterParms = EpiHelper.GetContentAreaContent<FieldQueryBlock>(srchPage.QueryOptions.Items);

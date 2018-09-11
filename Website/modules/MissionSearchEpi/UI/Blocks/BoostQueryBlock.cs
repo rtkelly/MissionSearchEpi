@@ -23,7 +23,7 @@ namespace MissionSearchEpi.UI.Blocks
         public virtual String FieldValue { get; set; }
 
         [Required]
-        [Display(Name = "Boost Relevance", Order = 4)]
+        [Display(Name = "Boost Value", Order = 4)]
         public virtual double Boost { get; set; }
     }
 }

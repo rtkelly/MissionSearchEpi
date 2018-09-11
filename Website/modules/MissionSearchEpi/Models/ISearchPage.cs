@@ -1,4 +1,5 @@
-﻿using EPiServer.Core;
+﻿
+using EPiServer.Core;
 
 namespace MissionSearchEpi
 {
@@ -15,7 +16,10 @@ namespace MissionSearchEpi
         ContentArea Sort { get; set; }
         
         ContentArea SuggestedResults { get; set; }
+                
 
-        
+        //IBoostSettings BoostSettings { get; set; }
+
+
     }
 }
