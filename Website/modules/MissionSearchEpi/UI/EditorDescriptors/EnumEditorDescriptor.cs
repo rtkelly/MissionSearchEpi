@@ -15,7 +15,7 @@ namespace MissionSearchEpi.UI.EditorDescriptors
             SelectionFactoryType = typeof(EnumSelectionFactory<TEnum>);
 
             ClientEditingClass =
-                "epi.cms.contentediting.editors.SelectionEditor";
+                "epi-cms/contentediting/editors/SelectionEditor";
 
             base.ModifyMetadata(metadata, attributes);
         }

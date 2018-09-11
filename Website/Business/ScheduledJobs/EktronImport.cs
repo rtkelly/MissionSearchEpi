@@ -125,7 +125,7 @@ namespace BaseSite.Business.Import
             myPage.SubTitle = parser.ParseString("/root/SubTitle");
             myPage.Intro = parser.ParseXHtmlString("/root/Introduction");
             myPage.MainBody = parser.ParseXHtmlString("/root/Article");
-            myPage.URLSegment = EPiServer.Web.UrlSegment.CreateUrlSegment(myPage);
+            //myPage.URLSegment = EPiServer.Web.UrlSegment.CreateUrlSegment(myPage);
             myPage.Summary = StripHtml(row["content_teaser"].ToString());
             
             _contentRepository.Save(myPage, EPiServer.DataAccess.SaveAction.Publish, EPiServer.Security.AccessLevel.NoAccess);
@@ -149,7 +149,7 @@ namespace BaseSite.Business.Import
             myPage.MainBody = parser.ParseXHtmlString("/PressReleases/Body");
             myPage.PublishedDate = BuildDate(2012);
 
-            myPage.URLSegment = EPiServer.Web.UrlSegment.CreateUrlSegment(myPage);
+            //myPage.URLSegment = EPiServer.Web.UrlSegment.CreateUrlSegment(myPage);
             
             _contentRepository.Save(myPage, EPiServer.DataAccess.SaveAction.Publish, EPiServer.Security.AccessLevel.NoAccess);
 
@@ -167,7 +167,7 @@ namespace BaseSite.Business.Import
             myPage.PageTitle = row["content_title"].ToString();
             myPage.Intro = parser.ParseXHtmlString("/root/Introduction");
             myPage.MainBody = parser.ParseXHtmlString("/root/Body");
-            myPage.URLSegment = EPiServer.Web.UrlSegment.CreateUrlSegment(myPage);
+            //myPage.URLSegment = EPiServer.Web.UrlSegment.CreateUrlSegment(myPage);
             myPage.Summary = StripHtml(row["content_teaser"].ToString());
             myPage.PublishedDate = BuildDate(2014);
 

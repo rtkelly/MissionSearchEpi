@@ -12,9 +12,9 @@ namespace MissionSearchEpi.UI.EditorDescriptors
             SelectionFactoryType = typeof(T);
 
             ClientEditingClass =
-                 "epi.cms.contentediting.editors.SelectionEditor";
+                 "epi-cms/contentediting/editors/SelectionEditor";
 
-            
+
             base.ModifyMetadata(metadata, attributes);
         }
     }
